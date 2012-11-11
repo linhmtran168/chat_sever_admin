@@ -1,0 +1,8 @@
+{
+  "name": "modernizr",
+  "version": "2.6.2-83-g8c385d6",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Modernizr/Modernizr.git"
+  }
+}

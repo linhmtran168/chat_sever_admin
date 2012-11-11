@@ -1,0 +1,34 @@
+div.navbar.navbar-static-top
+  div.navbar-inner
+    div.container
+      a.brand(href='/') Ogorin Admin
+
+      if currentUser
+        ul.nav
+          if slug === 'user'
+            li.active: a(href='/user') User Management
+          else
+            li: a(href='/user') User Management
+            
+          li: a(href='/admin') Admin Management
+
+        ul.nav.pull-right
+          li.divider-vertical
+          li.dropdown
+            div.btn-group
+              button.btn
+                i.icon-user
+                &nbsp; 
+                =currentUser.adminname
+              button.btn.dropdown-toggle(href='#', data-toggle='dropdown')
+                span.caret
+
+              ul.dropdown-menu
+                li
+                  a(href='/admin/account')
+                    i.icon-th-large
+                    | &nbsp;Dashboard
+                li 
+                  a(href='/logout')
+                    i.icon-eject
+                    | &nbsp;Logout

@@ -1,0 +1,26 @@
+{
+  "name": "OgorinAdmin",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon app.js"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "jade": "*",
+    "less-middleware": "*",
+    "mongoose": "latest",
+    "connect-redis": "*",
+    "redis": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "express-validator": "*",
+    "mocha": "*",
+    "chai": "*",
+    "nodemon": "*",
+    "connect-flash": "*",
+    "moment": "*",
+    "lodash": "*",
+    "googlemaps": "*"
+  }
+}

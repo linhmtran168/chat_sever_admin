@@ -1,0 +1,54 @@
+extends ../layout
+
+append head
+  link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.4/leaflet.css')
+  //if lte IE 8
+    link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css')
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.offset3
+        a(href="/user") Back to Search
+      li.active
+        a(href="#") #{ user.username }'s Profile
+
+  #profile-box.span12.offset2.row
+    #details.span4.thumbnail
+      img(src='/images/#{ user.profilePhoto }')
+
+      .caption
+        h4=user.username
+        p
+          ul
+            li
+              strong Email: 
+              |   #{ user.email }
+            if user.lastLocation.name
+              li
+                strong Last Location: 
+                |  #{ user.lastLocation.name }
+            li
+              strong Status:&nbsp; 
+                if user.status === 'online'
+                  span.label.label-success=user.status.toUpperCase()
+                else if user.status === 'offline'
+                  span.label=user.status.toUpperCase()
+                else
+                  span.label.label-important=user.status.toUpperCase()
+        p
+          #profile-options
+            if user.status === 'banned'
+              a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
+            else
+              a.btn.span1(href='/user/ban/#{ user.id }') Ban
+            a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+
+    #map-box.span6
+      input#latitude(type='hidden', value='#{ user.lastLocation.coords[1] }')
+      input#longitude(type='hidden', value='#{ user.lastLocation.coords[0] }')
+      input#user-id(type='hidden', value='#{ user.id }')
+      #map
+
+prepend scripts
+  script(src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js")
