@@ -71,7 +71,7 @@ app.configure('development', function(){
 
 app.configure('production', function() {
   app.use(express.errorHandler());
-  mongoose.connect('mongodb://localhost:27017/ogorin', { user: 'ogorinProf', pass: 'ProOgorinMongo' });
+  mongoose.connect('mongodb://localhost:27017/ogorin', { user: 'ogorinPro', pass: 'ProOgorinMongo' });
 });
 
 // Require passport configuration
