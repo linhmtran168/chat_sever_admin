@@ -230,7 +230,7 @@ module.exports = {
           if (err) {
             return res.json({
               status: 0,
-              errors: {
+              error: {
                 type: 'system',
                 message: 'System Error'
               }
@@ -268,7 +268,7 @@ module.exports = {
           if (err) {
             return res.json({
               status: 0,
-              errors: {
+              error: {
                 type: 'system',
                 message: 'System Error'
               }
@@ -359,6 +359,17 @@ module.exports = {
         radius = parseFloat(req.query.radius);
       }
 
+      // Check if user has location param or not
+      console.log(user.lastLocation.coords);
+      if (_.isEmpty(user.lastLocation.coords)) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'location',
+            message: 'This user has not yet updated his/her location'
+          }
+        });
+      }
 
       User.find({ 'lastLocation.coords': { $within: { $centerSphere: [ user.lastLocation.coords, radius/earthRadius ] } }, 'status': 'online' }, '-hash -accessToken -createdAt -updatedAt', function(err, users) {
         // If an error occured
@@ -587,7 +598,7 @@ module.exports = {
             if (err) {
               return res.json({
                 status: 0,
-                errors: {
+                error: {
                   type: 'system',
                   message: 'System Error'
                 }
@@ -605,9 +616,17 @@ module.exports = {
 
             // Return the results
             if (!_.isEmpty(errors)) {
+              // Get the errors object and transform it to an array
+              var msgArray =  _.map(errors, function(error) {
+                return error.msg;
+              });
+
               return res.json({
                 status: 0,
-                errors: errors,
+                error: {
+                  type: 'register',
+                  message: msgArray[msgArray.length - 1]
+                }
               });
             } 
             
@@ -619,9 +638,17 @@ module.exports = {
         } else {
           // Return the results
           if (!_.isEmpty(errors)) {
+            // Get the errors object and transform it to an array
+            var msgArray =  _.map(errors, function(error) {
+              return error.msg;
+            });
+
             return res.json({
               status: 0,
-              errors: errors,
+              error: {
+                type: 'register',
+                message: msgArray[msgArray.length - 1]
+              },
             });
           } 
 
@@ -655,9 +682,17 @@ module.exports = {
 
         // Return the results
         if (!_.isEmpty(errors)) {
+          // Get the errors object and transform it to an array
+          var msgArray =  _.map(errors, function(error) {
+            return error.msg;
+          });
+
           return res.json({
             status: 0,
-            errors: errors,
+            error: {
+              type: 'register',
+              message: msgArray[msgArray.length - 1]
+            }
           });
         } 
           
@@ -667,9 +702,17 @@ module.exports = {
       });
     } else {
       if (!_.isEmpty(errors)) {
+        // Get the errors object and transform it to an array
+        var msgArray =  _.map(errors, function(error) {
+          return error.msg;
+        });
+
         return res.json({
           status: 0,
-          errors: errors,
+          error: {
+            type: 'register',
+            message: msgArray[msgArray.length - 1]
+          }
         });
       } 
 
@@ -716,11 +759,19 @@ module.exports = {
     // Create the mapped errors array
     var errors = req.validationErrors(true);
 
+    // Get the errors object and transform it to an array
+    var msgArray =  _.map(errors, function(error) {
+      return error.msg;
+    });
+
     // If there is errors
     if (!_.isNull(errors)) {
       return res.json({
         status: 0,
-        errors: errors
+        error: {
+          type: 'update',
+          message: msgArray[msgArray.length - 1]
+        }
       });
     }
 
@@ -739,10 +790,18 @@ module.exports = {
     // Create the mapped errors array
     var errors = req.validationErrors(true);
 
+    // Get the errors object and transform it to an array
+    var msgArray =  _.map(errors, function(error) {
+      return error.msg;
+    });
+
     if (errors) {
       return res.json({
         status: 0,
-        errors: errors
+        error: {
+          type: 'location',
+          message: msgArray[msgArray.length - 1]
+        }
       });
     }
 
@@ -761,10 +820,18 @@ module.exports = {
       // Create the mapped errors array
       var errors = req.validationErrors(true);
       
+      // Get the errors object and transform it to an array
+      var msgArray =  _.map(errors, function(error) {
+        return error.msg;
+      });
+
       if (errors) {
         return res.json({
           status: 0,
-          errors: errors
+          error: {
+            type: 'location',
+            message: msgArray[msgArray.length - 1]
+          }
         });
       }
     }

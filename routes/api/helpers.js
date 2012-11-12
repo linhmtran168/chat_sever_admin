@@ -16,7 +16,8 @@ exports.checkForApiKey = function(req, res, next) {
     return res.json({
       status: 0,
       error: {
-        api: 'You must provide a correct apiKey'
+        type: 'api',
+        message: 'You must provide a correct apiKey'
       } 
     });
   } 
@@ -34,7 +35,8 @@ exports.checkForAccessToken = function(req, res, next) {
     return res.json({
       status: 0,
       error: {
-        api: 'You must provide an accessToken'
+        type: 'api',
+        message: 'You must provide an accessToken'
       }
     });
   } 
@@ -42,13 +44,15 @@ exports.checkForAccessToken = function(req, res, next) {
   // If there is an accessToken check if there is a user with this accessToken
   var accessToken = req.param('accessToken');
   User.findOne({ 'accessToken': accessToken }, function (err, user) {
-    console.log(user);
+    // console.log(user);
     // If an error occurs
+    // console.log(err);
     if (err) {
       return res.json({
         status: 0,
         error: {
-          system: 'System error'
+          type: 'system',
+          message: 'System error'
         }
       });
     }
@@ -58,15 +62,16 @@ exports.checkForAccessToken = function(req, res, next) {
       return res.json({
         status: 0,
         error: {
-          api: 'You must provide a correct accessToken'
+          type: 'api',
+          message: 'You must provide a correct accessToken'
         }
       });
     } 
 
     // If the is a user exist
     req.currentUserId = user.id;
+    console.log(user);
     next();
-    
   });
 };
 

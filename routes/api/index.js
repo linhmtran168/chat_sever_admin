@@ -17,8 +17,6 @@ module.exports = function(app) {
   app.get('/api/user/logout', helpers.checkForAccessToken, userCtrl.logout);
   // Route for a user to edit their profile
   app.put('/api/user/update', [helpers.checkForAccessToken, userCtrl.checkUpdateParams], userCtrl.updateProfile);
-  // Route for getting a user info
-  app.get('/api/user/:id', helpers.checkForAccessToken, userCtrl.getUserInfo);
   // Route for a user to update their location
   app.put('/api/user/update-location', [helpers.checkForAccessToken, userCtrl.checkForLngLat], userCtrl.updateLocation);
   // Route for user to get near by users
@@ -29,4 +27,7 @@ module.exports = function(app) {
   app.get('/api/user/remove-favorite/:id', helpers.checkForAccessToken, userCtrl.removeFromFavorite);
   // Route to get the user's list of favoriteUsers
   app.get('/api/user/get-favorite', helpers.checkForAccessToken, userCtrl.getFavoriteList);
+
+  // Route for getting a user info
+  app.get('/api/user/:id', helpers.checkForAccessToken, userCtrl.getUserInfo);
 };
