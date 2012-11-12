@@ -49,6 +49,7 @@ module.exports = {
         return res.json({
           status: 1,
           user: {
+            _id: user.id,
             username: user.username,
             email: user.email,
             accessToken: user.accessToken,
@@ -95,6 +96,7 @@ module.exports = {
           return res.json({
             status: 1,
             user: {
+              _id: user.id,
               username: user.username,
               email: user.email,
               accessToken: user.accessToken,
