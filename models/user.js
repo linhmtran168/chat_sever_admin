@@ -4,6 +4,7 @@
 var mongoose = require('mongoose')
   , bcrypt = require('bcrypt')
   , util = require('util')
+  , _ = require('lodash')
   // , gm = require('googlemaps')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
@@ -33,9 +34,25 @@ var userSchema = new Schema({
   updatedAt: { type: Date, default: Date.now, index: true }
 });
 
-// Update timestamp
 userSchema.pre('save', function(next) {
+  // Update timestamp
   this.updatedAt = new Date();
+
+  // Initial update user avatar based on gender
+  if (_.isUndefined(this.profilePhoto) || _.isEmpty(this.profilePhoto) || this.profilePhoto === 'male_avatar.png' || this.profilePhoto === 'female_avatar.png') {
+    if (_.isUndefined(this.gender)) {
+      this.profilePhoto = 'default_avatar.png';
+    }
+
+    if (this.gender === 'male') {
+      this.profilePhoto = 'male_avatar.png';
+    }
+
+    if (this.gender === 'female') {
+      this.profilePhoto = 'female_avatar.png';
+    }
+  }
+
   next();
 });
 
