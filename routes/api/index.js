@@ -1,10 +1,20 @@
 /*
  * Import route for api part of the web service
  */
-var helpers = require('./helpers'),
-    userCtrl = require('./user');
+var helpers = require('./helpers')
+  , chatCtrl = require('./chat')
+  , userCtrl = require('./user');
 
 module.exports = function(app) {
+
+  /*
+   * ========== Route for chat
+   */
+  // Route for getting a user's conversations
+  app.get('/api/chat/conversations', helpers.checkForAccessToken, chatCtrl.getConversations);
+
+  // Route for getting a user chat history
+  app.get('/api/chat/:id1/:id2', helpers.checkForAccessToken, chatCtrl.getChatHistory);
 
   /*
    * ========== Route for user
