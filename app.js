@@ -32,7 +32,7 @@ app.configure(function(){
   // Session configuration
   app.use(express.cookieParser());
   app.use(express.session({
-    store: new RedisStore({ db: 'sessions', maxAge: 7200000 }),
+    store: new RedisStore({ db: 'sessions', maxAge: 14400000 }),
     secret: 'DragonLinh123456789'
   }));
   

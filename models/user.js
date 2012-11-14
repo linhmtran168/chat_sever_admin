@@ -39,7 +39,7 @@ userSchema.pre('save', function(next) {
   this.updatedAt = new Date();
 
   // Initial update user avatar based on gender
-  if (_.isUndefined(this.profilePhoto) || _.isEmpty(this.profilePhoto) || this.profilePhoto === 'male_avatar.png' || this.profilePhoto === 'female_avatar.png') {
+  if (_.isUndefined(this.profilePhoto) || _.isEmpty(this.profilePhoto) || this.profilePhoto === 'male_avatar.png' || this.profilePhoto === 'female_avatar.png' || this.profilePhoto === 'default_avatar.png') {
     if (_.isUndefined(this.gender)) {
       this.profilePhoto = 'default_avatar.png';
     }
