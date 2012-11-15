@@ -1,10 +1,10 @@
 /*
  * API routes for user
  */
-var User = require('../../models/user'),
-    util = require('util'),
-    helpers = require('./helpers'),
-    _ = require('lodash');
+var User = require('../../models/user')
+  , util = require('util')
+  , helpers = require('./helpers')
+  , _ = require('lodash');
 
 module.exports = {
   /*
@@ -166,7 +166,7 @@ module.exports = {
    */
   updateProfile: function(req, res) {
     // Find the corresponding user
-    User.findById(req.currentUserId, '-hash -accessToken -lastLocation -loggedIn -createdAt -updatedAt', function(err, user) {
+    User.findById(req.currentUserId, '-hash -accessToken -loggedIn -createdAt -updatedAt', function(err, user) {
       // If a error occurs
       if (err) {
         return res.json({

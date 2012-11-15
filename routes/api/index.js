@@ -14,7 +14,10 @@ module.exports = function(app) {
   app.get('/api/chat/conversations', helpers.checkForAccessToken, chatCtrl.getConversations);
 
   // Route for getting a user chat history
-  app.get('/api/chat/:id1/:id2', helpers.checkForAccessToken, chatCtrl.getChatHistory);
+  app.get('/api/chat/history/:partnerId', [helpers.checkForAccessToken, chatCtrl.checkNumMessage], chatCtrl.getChatHistory);
+
+  // Route for deleting a user's conversation
+  app.delete('/api/chat/conversation/:partnerId', helpers.checkForAcessToken, chatCtrl.deleteConversation);
 
   /*
    * ========== Route for user

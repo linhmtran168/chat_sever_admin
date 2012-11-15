@@ -24,6 +24,32 @@ block content
             li
               strong Email: 
               |   #{ user.email }
+
+            if user.gender 
+              li
+                strong Gender:
+                |  #{ user.gender }
+
+            if user.birthday
+              li
+                strong Birthday:
+                |  #{ user.birthday }
+
+            if user.screenName
+              li
+                strong Screen Name:
+                |  #{ user.screenName }
+
+            if user.occupation
+              li
+                strong Occupation:
+                |  #{ user.occupation }
+
+            if user.bloodType
+              li
+                strong Blood Type:
+                |  #{ user.bloodType }
+
             if user.lastLocation.name
               li
                 strong Last Location: 

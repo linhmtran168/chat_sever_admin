@@ -4,9 +4,15 @@ $(function() {
    */
   if ($('#map').length !== 0) {
     // Initialize the map
-    OG.map.initialize($('#latitude').val(), $('#longitude').val(), 'map');
-    // Add the marker
-    OG.map.addNormalMarker($('#latitude').val(), $('#longitude').val(), 'map');
+    if ($('#latitude').val() !== 'undefined' && $('#longitude').val() !== 'undefined') {
+      OG.map.initialize($('#latitude').val(), $('#longitude').val(), 'map');
+      // Add the marker
+      OG.map.addNormalMarker($('#latitude').val(), $('#longitude').val(), 'map');
+    } else {
+      // Initial the default map
+      console.log('abc');
+      OG.map.initialize(35.689487, 139.691706, 'map');
+    }
   }
 
   /*

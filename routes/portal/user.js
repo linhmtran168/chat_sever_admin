@@ -1,5 +1,9 @@
 var User = require('../../models/user')
+  , moment = require('moment')
+  , _ = require('lodash')
   , util = require('util');
+
+moment.lang('jp');
 
 /*
  * Route for user
@@ -42,7 +46,7 @@ module.exports = {
 
     var query;
     // ----- If this is the search by usename
-    // Get the regex string of username
+    // Get the )egex string of username
     var usernameRegex = new RegExp(searchKey, 'i');
     // console.log(usernameRegex);
 
@@ -152,6 +156,16 @@ module.exports = {
         return res.redirect('/');
       }
 
+      // Change the birthday of User
+      if (!_.isUndefined(user.birthday) && !_.isEmpty(user.birthday)) {
+        user.birthday = moment.unix(parseInt(user.birthday, 10)).format('MMMM Do YYYY');
+      }
+
+      // Change the format of the gender
+      if (!_.isUndefined(user.gender) && !_.isEmpty(user.gender)) {
+        user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+      }
+
       // If there is a user render the profile page
       res.render('user/profile', {
         title: 'User Profile',
@@ -175,6 +189,7 @@ module.exports = {
       if (err) {
         res.redirect('/');
       }
+
 
       // Re-render the user profile
       res.render('user/profile', {
