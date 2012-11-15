@@ -7,7 +7,7 @@ test-server-w:
 		test/server/*.js
 
 run-production:
-	@NODE_ENV=production forever -w ---watchDirectory /home/linhtm/sites/ogorinAdmin start -l forever.log -o logs/out.log -e logs/err.log  app.js
+	@NODE_ENV=production forever -w ---watchDirectory /home/linhtm/sites/ogorinAdmin start -l -a forever_ogorinAdmin.log -o logs/out.log -e logs/err.log  app.js
 
 restart:
 	@NODE_ENV=production forever restart UJYJ
