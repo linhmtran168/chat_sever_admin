@@ -10,6 +10,6 @@ run-production:
 	@NODE_ENV=production forever -w ---watchDirectory /home/linhtm/sites/ogorinAdmin start -l forever_ogorinAdmin.log -o logs/out.log -e logs/err.log -a app.js 
 
 restart:
-	@NODE_ENV=production forever restart UJYJ
+	@NODE_ENV=production forever restart xSj6
 
 .PHONY: test-server test-server-w run-production
