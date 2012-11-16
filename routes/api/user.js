@@ -18,7 +18,7 @@ module.exports = {
       email: req.body.email,
       password: req.body.password,
       status: 'online',
-      loggedIn: (+new Date())
+      loggedIn: Math.round(+new Date()/1000)
     });
 
     // Save the new user 
