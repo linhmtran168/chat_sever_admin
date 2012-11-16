@@ -242,6 +242,24 @@ module.exports = {
         });
       }
 
+      // Delete all the key related to this user in the redis
+      var redis = require('redis')
+        , redisClient = redis.createClient();
+
+      redisClient.smembers('chat:' + userId + ':keys', function(err, replies) {
+        // If err
+        if (err) {
+          console.log('Error deleting data');
+          return;
+        }
+
+        // If not, delete all the key in the replies
+        if (replies.length !== 0) {
+          redisClient.del(replies, redis.print);
+        }
+      });
+
+      // Create th flash message and redirect
       req.flash('message', 'Successfully delete user');
       res.redirect('/');
     });
