@@ -638,7 +638,7 @@ module.exports = {
       // Return the list of viewed users list
       return res.json({
         status: 1,
-        users: user.viewedUsers,
+        users: user.viewedUsers.reverse(),
         message: 'Successfully get the list of recently viewed users'
       });
     });
@@ -664,7 +664,7 @@ module.exports = {
       // Return the list of users
       return res.json({
         status: 1,
-        users: user.viewedBy,
+        users: user.viewedBy.reverse(),
         message: 'Successfully get the list of users that recently view your profile'
       });
     });
