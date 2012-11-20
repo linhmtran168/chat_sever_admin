@@ -553,6 +553,176 @@ module.exports = {
   },
 
   /*
+   * Function after a user see another user profile
+   */
+  profileViewed: function(req, res) {
+    // Find the user with the given id in the param
+    User.findById(req.params.id, function(err, userToAdd) {
+      // If an error occured
+      if (err) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // If no user was return
+      if (!userToAdd) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'user',
+            message: 'There is no user with that id',
+          }
+        });
+      }
+
+      // add the current user to the list viewedBy of the other user
+      userToAdd.update({ $addToSet: { 'viewedBy': req.currentUserId } }, function(err) {
+        // If error
+        if (err) {
+          console.log(err);
+          return res.json({
+            status: 0,
+            error: {
+              type: 'system',
+              message: 'System Error'
+            }
+          });
+        }
+
+        // Update the current user's list of viewedusers
+        User.update({ '_id': req.currentUserId }, { $addToSet: { 'viewedUsers': userToAdd.id } }, function(err) {
+          // If error
+          if (err) {
+            return res.json({
+              status: 0,
+              error: {
+                type: 'system',
+                message: 'System Error'
+              }
+            });
+          }
+
+          return res.json({
+            status: 1,
+            message: 'Succesfully update the list of viewed users and view by users'
+          });
+        });
+      });
+
+    });
+  },
+
+  /*
+   * Function to return the list viewed users 
+   */
+  recentlyViewedUsers: function(req, res) {
+    // Get the current user by Id and alse populate the viewed Users list
+    User.findById(req.currentUserId).populate('viewedUsers', '-hash -accessToken -createdAt -updatedAt').exec(function(err, user) {
+      // If an error occured
+      if (err) {
+        console.log(err);
+        return res.json({
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // Return the list of viewed users list
+      return res.json({
+        status: 1,
+        users: user.viewedUsers,
+        message: 'Successfully get the list of recently viewed users'
+      });
+    });
+  },
+
+  /*
+   * Function to return the list of recently users that view current user profile
+   */
+  recentlyViewedBy: function(req, res) {
+    // Get the current user by Id and alse populate the list
+    User.findById(req.currentUserId).populate('viewedBy', '-hash -accessToken -createdAt -updatedAt').exec(function(err, user) {
+      // If an error occured
+      if (err) {
+        return res.json({
+          status: 0,
+          error:{
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // Return the list of users
+      return res.json({
+        status: 1,
+        users: user.viewedBy,
+        message: 'Successfully get the list of users that recently view your profile'
+      });
+    });
+  },
+
+  /*
+   * Function to clear list of recently viewed users
+   */
+  clearRecentlyViewedUsers: function(req, res) {
+    // update the current user (change the array of viewedUsers to [])
+    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedUsers': [] } }, function(err, user) {
+      // If an error occured
+      if (err) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // Return
+      return res.json({
+        status: 1,
+        user: user,
+        messsage: 'Successfully clear the list'
+      });
+    });
+  },
+
+  /*
+   * Function to clear list of users that recently viewed your profile
+   */
+  clearRecentlyViewedBy: function(req, res) {
+    // update the current user (change the array of viewedBy to [])
+    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedBy': [] } }, function(err, user) {
+      // If an error occured
+      if (err) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // Return
+      return res.json({
+        status: 1,
+        user: user,
+        messsage: 'Successfully clear the list'
+      });
+    });
+  },
+
+  /*
    * Function to validate a new user
    */
   validateUser: function(req, res, next) {

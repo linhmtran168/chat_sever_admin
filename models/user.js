@@ -28,6 +28,8 @@ var userSchema = new Schema({
     coords: { type: Array, index: '2d' }
   },
   favoriteUsers: [{ type: ObjectId, ref: 'User' }],
+  viewedUsers: [{ type: ObjectId, ref: 'User' }],
+  viewedBy: [{ type: ObjectId, ref: 'User' }],
   loggedIn: { type: String },
   accessToken: { type: String, index: true },
   createdAt: { type: Date, default: Date.now, index: true },
