@@ -59,6 +59,13 @@ block content
                             span.label.label-important=user.status.toUpperCase()
 
       #tab1.tab-pane.active
+        if typeof(message) !== 'undefined' && message.length !== 0
+          #message-box
+          .row
+            .alert.alert-error.span5.offset7
+                button.close(type='button', data-dismiss='alert') x
+                =message
+
         .search-box.row
           form#location-form(action='/user/search-location', method='get')
               .span8.offset6
@@ -69,13 +76,6 @@ block content
                     input#search-location.span6(type='text', name='searchLocation', placeholder='Location')
                   span.add-on
                     i.icon-search
-
-        if typeof(message) !== 'undefined' && message.length !== 0
-          #message-box
-          .row
-            .alert.alert-error.span5.offset7
-                button.close(type='button', data-dismiss='alert') x
-                =message
 
         .row
           #index-map
