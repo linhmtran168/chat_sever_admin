@@ -675,7 +675,7 @@ module.exports = {
    */
   clearRecentlyViewedUsers: function(req, res) {
     // update the current user (change the array of viewedUsers to [])
-    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedUsers': [] } }, function(err, user) {
+    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedUsers': [] } }, { select: '-hash -accessToken -createdAt -updatedAt' }, function(err, user) {
       // If an error occured
       if (err) {
         return res.json({
@@ -701,7 +701,7 @@ module.exports = {
    */
   clearRecentlyViewedBy: function(req, res) {
     // update the current user (change the array of viewedBy to [])
-    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedBy': [] } }, function(err, user) {
+    User.findByIdAndUpdate(req.currentUserId, { $set: { 'viewedBy': [] } }, { select: '-hash -accessToken -createdAt -updatedAt' }, function(err, user) {
       // If an error occured
       if (err) {
         return res.json({
