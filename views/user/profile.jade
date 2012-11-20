@@ -30,6 +30,11 @@ block content
                 strong Gender:
                 |  #{ user.gender }
 
+            if user.about
+              li
+                strong About:
+                |  #{ user.about }
+
             if user.birthday
               li
                 strong Birthday:
