@@ -30,18 +30,18 @@ app.configure(function(){
   app.use(express.methodOverride());
 
   // Session configuration
-  app.use(express.cookieParser());
-  app.use(express.session({
+  app.all(/^(?!\/api).*$/, express.cookieParser());
+  app.all(/^(?!\/api).*$/, express.session({
     store: new RedisStore({ db: 'sessions', maxAge: 14400000 }),
     secret: 'DragonLinh123456789'
   }));
   
-  // Set up flash message
-  app.use(flash());
-
   // Passport inintialization
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.all(/^(?!\/api).*$/, passport.initialize());
+  app.all(/^(?!\/api).*$/, passport.session());
+
+  // Set up flash message
+  app.all(/^(?!\/api).*$/, flash());
 
   // CSRF configuration
   app.all(/^(?!\/api).*$/, express.csrf());
@@ -55,6 +55,7 @@ app.configure(function(){
 
     next();
   });
+
 
   // Router configuration
   app.use(app.router);

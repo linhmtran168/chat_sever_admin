@@ -215,6 +215,7 @@ module.exports = {
       if (!_.isUndefined(req.files) && !_.isUndefined(req.files.profilePhoto)) {
         // Upload the image file
         console.log('To upload file');
+        console.log(req.files);
         helpers.uploadFile(req.files.profilePhoto, function(err, newPhotoName) {
           // If file type check fails
           if (newPhotoName === false) {
@@ -292,7 +293,7 @@ module.exports = {
    */
   updateLocation: function(req, res) {
     // Get the user instance and update the location
-    User.findById(req.currentUserId, 'lastLocation', function(err, user) {
+    User.findById(req.currentUserId, function(err, user) {
       // If a err occured
       if (err) {
         return res.json({
