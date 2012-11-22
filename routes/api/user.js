@@ -409,7 +409,7 @@ module.exports = {
         });
       }
 
-      User.find({ 'lastLocation.coords': { $within: { $centerSphere: [ user.lastLocation.coords, radius/earthRadius ] } }, 'status': 'online' }, '-hash -accessToken -createdAt -updatedAt', function(err, users) {
+      User.find({ '_id': { $ne: req.currentUserId }, 'lastLocation.coords': { $within: { $centerSphere: [ user.lastLocation.coords, radius/earthRadius ] } }, 'status': 'online' }, '-hash -accessToken -createdAt -updatedAt', function(err, users) {
         // If an error occured
         if (err) {
           return res.json({
