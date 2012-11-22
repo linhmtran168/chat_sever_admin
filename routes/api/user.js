@@ -151,11 +151,46 @@ module.exports = {
         });
       }
 
-      // Send the successful message
-      return res.json({
-        status: 1,
-        user: user,
-        message: 'Successfully get user\'s information'
+      // If this user is viewing this own profile
+      if (req.currentUserId === user.id) { 
+        // Send the successful message
+        return res.json({
+          status: 1,
+          user: user,
+          message: 'Successfully get user\'s information'
+        });
+      }
+
+      // Get the information of current user
+      User.findById(req.currentUserId, function(err, currentUser) {
+        // If a error occurs
+        if (err) {
+          return res.json({
+            status: 0,
+            error: {
+              type: 'system',
+              message: 'System Error'
+            }
+          });
+        }
+
+        // Transform the Mongoose object to javascript object
+        var userToReturn = user.toObject();
+        // If this user is in the list of current User's favorite
+        if (currentUser.favoriteUsers.indexOf(user.id) !== -1) {
+          userToReturn.isFavorite = 1;
+        } else {
+          userToReturn.isFavorite = 0;
+        }
+
+        console.log(userToReturn);
+
+        // Send the successful message
+        return res.json({
+          status: 1,
+          user: userToReturn,
+          message: 'Successfully get user\'s information'
+        });
       });
 
     });
