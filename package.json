@@ -21,6 +21,6 @@
     "connect-flash": "*",
     "moment": "*",
     "lodash": "*",
-    "googlemaps": "*"
+    "imagemagick": "*"
   }
 }
