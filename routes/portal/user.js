@@ -260,7 +260,7 @@ module.exports = {
       });
 
       // Remove all the references of this id in the database
-      User.find({ $or: [ { favoriteUsers: userId }, { viewedUsers: userId }, { viewedBy: useId } ] }, function(err, users) {
+      User.find({ $or: [ { favoriteUsers: userId }, { viewedUsers: userId }, { viewedBy: userId } ] }, function(err, users) {
         // if err
         if (err) {
           console.log('Error finding users with references to this user');
