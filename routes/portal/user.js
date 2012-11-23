@@ -275,9 +275,15 @@ module.exports = {
 
         // Remove the references
         _.forEach(users, function(user) {
-          user.favoriteUsers.pull(userId);
-          user.viewedBy.pull(userId);
-          user.viewedUsers.pull(userId);
+          user.favoriteUsers.remove(userId);
+          user.viewedBy.remove(userId);
+          user.viewedUsers.remove(userId);
+          // Save the user
+          user.save(function(err, user) {
+            if (err) {
+              console.log('Error delete the references');
+            }
+          });
         });
 
         console.log('Successfully remove the user id references from the database');
