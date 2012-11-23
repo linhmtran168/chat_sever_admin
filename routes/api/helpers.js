@@ -5,6 +5,7 @@ var apiConfig = require('../../config/api'),
     User = require('../../models/user'),
     crypto = require('crypto'),
     fs = require('fs'),
+    im = require('imagemagick'),
     _ = require('lodash');
 
 /*
@@ -102,8 +103,14 @@ exports.uploadFile = function(file, callback) {
 
   newPath = './public/images/' + newName;
 
-  // Move the image
-  fs.rename(tmpPath, newPath, function(err) {
+  // resize and move the image
+  im.resize({
+    srcPath: tmpPath,
+    dstPath: newPath,
+    width: 300
+  }, function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
     callback(err, newName);
   });
 };
