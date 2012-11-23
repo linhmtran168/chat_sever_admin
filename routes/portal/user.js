@@ -259,7 +259,32 @@ module.exports = {
         }
       });
 
-      // Create th flash message and redirect
+      // Remove all the references of this id in the database
+      User.find({ $or: [ { favoriteUsers: userId }, { viewedUsers: userId }, { viewedBy: useId } ] }, function(err, users) {
+        // if err
+        if (err) {
+          console.log('Error finding users with references to this user');
+          return;
+        }
+
+        // If there is no user return
+        if (users.length === 0) {
+          console.log('There is no refenrences of this user id');
+          return;
+        }
+
+        // Remove the references
+        _.forEach(users, function(user) {
+          user.favoriteUsers.remove(userId);
+          user.viewedBy.remove(userId);
+          user.viewedUsers.remove(userId);
+        });
+
+        console.log('Successfully remove the user id references from the database');
+        return;
+      });
+
+      // Create the flash message and redirect
       req.flash('message', 'Successfully delete user');
       res.redirect('/');
     });
