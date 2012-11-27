@@ -16,7 +16,7 @@ module.exports = {
    */
   index: function(req, res) {
     // Find all online users
-    User.find(function(err, users) {
+    User.find({}, null, { sort: 'username'}, function(err, users) {
       if (err) {
         // return handleError(err);
         return res.render('user/index', {
