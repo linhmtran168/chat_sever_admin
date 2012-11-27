@@ -1,4 +1,8 @@
 $(function() {
+
+  // Initialize infinity
+  var $el = $('#user-grid');
+  var listView = new infinity.ListView($el);
   /*
    * If is the profile view, and have a #map, initialize the map
    */
