@@ -58,6 +58,6 @@ module.exports = function(app) {
   app.post('/test/create-admin', [helpers.csrf, testCtrl.validateAdmin], testCtrl.createAdmin);
 
   // Route for creating dummy user
-  app.get('/test/create-user', helpers.csrf, testCtrl.createUser);
-  app.post('/test/create-user', [helpers.csrf, testCtrl.validateUser],testCtrl.createUser);
+  // app.get('/test/create-user', helpers.csrf, testCtrl.createUser);
+  // app.post('/test/create-user', [helpers.csrf, testCtrl.validateUser],testCtrl.createUser);
 };

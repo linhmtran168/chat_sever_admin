@@ -1,7 +1,8 @@
 var User = require('../../models/user')
   , moment = require('moment')
   , _ = require('lodash')
-  , util = require('util');
+  , util = require('util')
+  , helpers = require('./helpers');
 
 moment.lang('jp');
 
@@ -241,6 +242,9 @@ module.exports = {
           user: user
         });
       }
+
+      // Delete the profile photo
+      helpers.deletePhoto(user.profilePhoto);
 
       // Delete all the key related to this user in the redis
       var redis = require('redis')

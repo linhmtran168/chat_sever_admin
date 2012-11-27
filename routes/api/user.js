@@ -275,6 +275,8 @@ module.exports = {
             });
           }
 
+          // Delete the old photo
+          helpers.deletePhoto(user.profilePhoto);
           // If success saving the file
           user.profilePhoto = newPhotoName;
 

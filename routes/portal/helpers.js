@@ -1,5 +1,6 @@
 var fs = require('fs')
-  , crypto = require('crypto');
+  , crypto = require('crypto')
+  , _ = require('lodash');
 /*
  * Helpers for portal route
  */
@@ -52,5 +53,31 @@ exports.uploadFile = function(file, callback) {
   // Move the image
   fs.rename(tmpPath, newPath, function(err) {
     callback(err, newName);
+  });
+};
+
+// Middleware to delete a profilePhoto
+exports.deletePhoto = function(profilePhoto) {
+  var defaultPhotos = ['male_avatar.png', 'female_avatar.png', 'default_avatar.png'];
+  // If profile photo of this user is a default one do nothing
+  if (_.indexOf(defaultPhotos, profilePhoto) !== -1) {
+    return;
+  }
+
+  var photoPath;
+  // Create the photo path according to environment
+  if (process.env.NODE_ENV === 'production') {
+    photoPath = '/home/linhtm/sites/ogorinImage/';
+  } else {
+    photoPath = './public/images/';
+  }
+  // Delete the photo
+  fs.unlink(photoPath + profilePhoto, function(err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    console.log('Successfully delete the profile Photo');
   });
 };
