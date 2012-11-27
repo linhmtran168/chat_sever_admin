@@ -16,7 +16,7 @@ module.exports = {
    */
   index: function(req, res) {
     // Find all online users
-    User.find({}, null, { sort: 'username'}, function(err, users) {
+    User.find({ type: 'real' }, null, { sort: 'username'}, function(err, users) {
       if (err) {
         // return handleError(err);
         return res.render('user/index', {
@@ -53,9 +53,9 @@ module.exports = {
 
     // Create the query based on status option
     if (statusOption === 'all') {
-      query = User.find({ 'username': usernameRegex });
+      query = User.find({ 'username': usernameRegex, type: 'real' });
     } else {
-      query = User.find({ 'username': usernameRegex, 'status': statusOption });
+      query = User.find({ 'username': usernameRegex, 'status': statusOption, 'type': 'real' });
     }
 
     query.exec(function(err, users) {
@@ -97,9 +97,9 @@ module.exports = {
 
     // Create the query based on status option
     if (statusOption === 'all') {
-      query = User.find({ 'username': usernameRegex });
+      query = User.find({ 'username': usernameRegex, type: 'real' });
     } else {
-      query = User.find({ 'username': usernameRegex, 'status': statusOption });
+      query = User.find({ 'username': usernameRegex, 'status': statusOption, type: 'real' });
     }
 
     query.select('id username profilePhoto email status lastLocation').exec(function(err, users) {
@@ -128,7 +128,7 @@ module.exports = {
 
     console.log(box);
     // Query to find the users in the bounds
-    User.find({ 'lastLocation.coords': { $within: { $box: box } }}, 'id username profilePhoto status lastLocation', function(err, users) {
+    User.find({ 'lastLocation.coords': { $within: { $box: box } }, type: 'real' }, 'id username profilePhoto status lastLocation', function(err, users) {
       if (err) {
         return res.json({ error: 'System Error' });
       }

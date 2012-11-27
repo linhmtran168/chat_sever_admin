@@ -18,6 +18,7 @@ module.exports = {
       email: req.body.email,
       password: req.body.password,
       status: 'online',
+      type: 'real',
       loggedIn: Math.round(+new Date()/1000)
     });
 
