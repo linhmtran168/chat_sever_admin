@@ -39,6 +39,7 @@ module.exports = {
   // Function to create dummy user
   createUser: function(req, res) {
 
+    console.log("Environment variable: " + process.env.NODE_ENV);
     if (req.method !== 'POST') {
       res.render('test/createUser', {
         title: 'Create User',

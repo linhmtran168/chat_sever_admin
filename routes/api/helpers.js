@@ -102,7 +102,6 @@ exports.uploadFile = function(file, callback) {
   newName = crypto.createHash('md5').update(tmpPath).digest('hex') + extension;
 
   // Create the path for upload image
-  console.log("Environment variable: " + process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'production') {
     newPath = '/home/linhtm/sites/ogorinImage/' + newName;
   } else {
