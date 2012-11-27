@@ -1,0 +1,35 @@
+{
+  "name": "infinity",
+  "version": "0.0.0",
+  "description": "A UITableView for the web.",
+  "keywords": [
+    "infinite",
+    "scroll",
+    "infinity",
+    "UITableView",
+    "ListView"
+  ],
+  "homepage": "http://airbnb.github.com/infinity",
+  "contributors": [
+    {
+      "name": "Matt Baker",
+      "url": "http://github.com/reissbaker"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/airbnb/infinity"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "uglify-js": "1.3.3",
+    "docco": "0.3.0",
+    "mocha": "1.3.2",
+    "expect.js": "0.1.2",
+    "coffee-script": "1.3.3"
+  },
+  "readme": "```\n __     __   __     ______   __     __   __     __     ______   __  __    \n/\\ \\   /\\ \"-.\\ \\   /\\  ___\\ /\\ \\   /\\ \"-.\\ \\   /\\ \\   /\\__  _\\ /\\ \\_\\ \\   \n\\ \\ \\  \\ \\ \\-.  \\  \\ \\  __\\ \\ \\ \\  \\ \\ \\-.  \\  \\ \\ \\  \\/_/\\ \\/ \\ \\____ \\  \n \\ \\_\\  \\ \\_\\\\\"\\_\\  \\ \\_\\    \\ \\_\\  \\ \\_\\\\\"\\_\\  \\ \\_\\    \\ \\_\\  \\/\\_____\\ \n  \\/_/   \\/_/ \\/_/   \\/_/     \\/_/   \\/_/ \\/_/   \\/_/     \\/_/   \\/_____/ \n```\n\nInfinity.js is a UITableView for the web: it speeds up scrolling through long\nlists and keeps your infinite feeds smooth and stable for your users.\n\nFor more information:\n[http://airbnb.github.com/infinity](http://airbnb.github.com/infinity)\n",
+  "readmeFilename": "README.md",
+  "_id": "infinity@0.2.2",
+  "commit": "adac94ad2dfda1b143480c0ab572f9cb0aabc20c"
+}
