@@ -101,7 +101,12 @@ exports.uploadFile = function(file, callback) {
   // Create the newName by hashing the file path
   newName = crypto.createHash('md5').update(tmpPath).digest('hex') + extension;
 
-  newPath = './public/images/' + newName;
+  // Create the path for upload image
+  if (process.env.NODE_ENV === 'production') {
+    newPath = '/home/linhtm/sites/ogorinImage/' + newName;
+  } else {
+    newPath = './public/images/' + newName;
+  }
 
   // resize and move the image
   im.resize({
