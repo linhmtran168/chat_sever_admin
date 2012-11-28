@@ -136,6 +136,32 @@ Parttimer.prototype.checkEmail = function(req, res) {
 };
 
 /*
+ * Function to create a new parttimer
+ */
+Parttimer.prototype.createParttimer = function(req, res) {
+  // Create new user instance
+  var user = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    type: 'fake',
+  });
+
+  // Save the new user 
+  user.save(function(err) {
+    if (err) {
+      console.log('Error: \n' + util.inspect(err));
+      req.flash('message', 'There is problem saving new parttimer');
+      res.redirect(500, '/parttimer');
+    } else {
+      console.log('Save parttimer successfully');
+      req.flash('message', 'Successfully create new parttimer! If you want to change parttimer detail, visit parttimer portal');
+      res.redirect('/parttimer');
+    }
+  });
+};
+
+/*
  * Function to validate parttimer (double check)
  */
 Parttimer.prototype.validateParttimer = function(req, res, next) {

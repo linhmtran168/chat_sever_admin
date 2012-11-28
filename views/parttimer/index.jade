@@ -13,7 +13,7 @@ block content
         if typeof(message) !== 'undefined' && message.length !== 0
           #message-box
           .row
-            .alert.alert-error.span5.offset6
+            .alert.alert-error.span6.offset6
                 button.close(type='button', data-dismiss='alert') x
                 =message
 
@@ -63,7 +63,7 @@ block content
       #tab2.tab-pane.fade
         .row
           .span7.offset6.register-block
-            form#create-parttimer.form(action='/test/create-user', method='post',
+            form#create-parttimer.form(action='/parttimer/create-parttimer', method='post',
               enctype='multipart/form-data')
               legend.register-legend Create new part-timer
               div.offset1.register-inputs

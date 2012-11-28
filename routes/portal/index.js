@@ -50,6 +50,9 @@ module.exports = function(app) {
   app.get('/parttimer/check-username', helpers.ensureAuthenticated, parttimerCtrl.checkUsername);
   app.get('/parttimer/check-email', helpers.ensureAuthenticated, parttimerCtrl.checkEmail);
 
+  // Route for create a new parttimer
+  app.post('/parttimer/create-parttimer', [helpers.ensureAuthenticated, helpers.csrf], parttimerCtrl.createParttimer);
+
 
   /*
    * ============== Route for admin
