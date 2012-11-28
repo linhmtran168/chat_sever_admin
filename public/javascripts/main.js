@@ -54,4 +54,20 @@ $(function() {
     return false;
   });
 
+  /*
+   * Search for parttimer part
+   */
+  $('#parttimer-form').submit(function(e) {
+    e.preventDefault();
+    // Call the method to send request to sever
+    OG.connect.getParttimers();
+
+    return false;
+  });
+
+  /*
+   * Create pattimer form validation
+   */
+  $('#create-parttimer input').not('[type=submit]').jqBootstrapValidation();
+
 });

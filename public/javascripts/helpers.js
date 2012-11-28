@@ -238,6 +238,30 @@
         }
 
       });
+    },
+
+    /*
+     * Function to get list of parttimers when search for username
+     */
+    getParttimers: function() {
+      // Creat the data object to send to ther server
+      var data = {
+        searchKey: $('#search-username').val(),
+        statusOption: $('select[name=statusOption]').val()
+      };
+
+      // Clear the list
+      $('#users-grid').html('');
+
+      // Send the request to the server
+      $.get('/parttimer/search-parttimer', data, function(data) {
+        console.log(data);
+        if (data.length > 0 && typeof(data.error) === 'undefined') {
+          // console.log("abc");
+          OG.ui.addUserGrid(data);
+        }
+
+      });
     }
   };
 

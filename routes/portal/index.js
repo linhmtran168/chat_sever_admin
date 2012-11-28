@@ -8,6 +8,7 @@ module.exports = function(app) {
   // Load controllers
   var userCtrl = require('./user')
     , testCtrl = require('./test')
+    , parttimerCtrl = require('./parttimer')
     , adminCtrl = require('./admin');
 
   /*
@@ -35,6 +36,20 @@ module.exports = function(app) {
 
   // Route for deleting a user
   app.get('/user/delete/:id', helpers.ensureAuthenticated, userCtrl.deleteUser);
+
+  /*
+   * ============== Route for parttimer
+   */
+  // Route to render the main page
+  app.get('/parttimer', [helpers.ensureAuthenticated, helpers.csrf], parttimerCtrl.indexParttimer);
+
+  // Route to search for a parttimer
+  app.get('/parttimer/search-parttimer', helpers.ensureAuthenticated, parttimerCtrl.searchParttimer);
+
+  // Route for check for email & username
+  app.get('/parttimer/check-username', helpers.ensureAuthenticated, parttimerCtrl.checkUsername);
+  app.get('/parttimer/check-email', helpers.ensureAuthenticated, parttimerCtrl.checkEmail);
+
 
   /*
    * ============== Route for admin

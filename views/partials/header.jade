@@ -10,7 +10,10 @@ div.navbar.navbar-static-top
           else
             li: a(href='/user') User Management
             
-          li: a(href='/parttimer') Admin Management
+          if slug === 'parttimer'
+            li.active: a(href='/parttimer') Parttimer Management
+          else
+            li: a(href='/parttimer') Parttimer Management
 
         ul.nav.pull-right
           li.divider-vertical
