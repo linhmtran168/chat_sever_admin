@@ -1,0 +1,97 @@
+extends ../layout
+
+block content
+  .tabbable.tab-bar
+    ul.nav.nav-tabs
+      li.active.offset3
+        a(href="#tab1", data-toggle="tab") Manage Part-timer
+      li
+        a(href="#tab2", data-toggle="tab") Create New Part-timer
+
+    .tab-content
+      #tab1.tab-pane.active
+        if typeof(message) !== 'undefined' && message.length !== 0
+          #message-box
+          .row
+            .alert.alert-error.span5.offset6
+                button.close(type='button', data-dismiss='alert') x
+                =message
+
+        .search-box.row
+          form#parttimer-form(action='/parttimer/search-parttimer', method='get')
+            .row
+              .span8.offset6
+                .input-append
+                  if typeof(searchKey) !== 'undefined'
+                    input#search-username.input-xxlarge(type='text', name='searchUsername', placeholder='Username', value='#{ searchKey }')
+                  else
+                    input#search-username.input-xxlarge(type='text', name='search', placeholder='Username')
+
+                  span.add-on
+                    i.icon-search
+            .row
+              #search-options.span9.offset7
+                  button.btn(type='submit') Search Username
+                  select(name='statusOption')
+                    option(value='all') All users
+                    option(value='banned') Only banned users
+                    option(value='online') Only online users
+                    option(value='offline') Only offline users
+
+
+        #users-box.span12.offset3.row
+          ul#users-grid.thumbnails
+            if typeof(users) !== 'undefined'
+              if users.length !== 0
+                for user in users
+                  li.span2
+                    .thumbnail
+                      .thumbnail-img-div
+                        a(href='/parttimer/#{ user.id }')
+                          img(src='http://49.212.161.19:3050/#{ user.profilePhoto }')
+                      .caption
+                        h5=user.username
+                        p
+                          em Status:&nbsp; 
+                          if user.status === 'online'
+                            span.label.label-success=user.status.toUpperCase()
+                          else if user.status === 'offline'
+                            span.label=user.status.toUpperCase()
+                          else
+                            span.label.label-important=user.status.toUpperCase()
+
+      #tab2.tab-pane.fade
+        .row
+          .span7.offset6.register-block
+            form#create-parttimer.form(action='/test/create-user', method='post',
+              enctype='multipart/form-data')
+              legend.register-legend Create new part-timer
+              div.offset1.register-inputs
+                div.control-group
+                  input(type='hidden', name='_csrf', value=token)
+                  label.control-label(for='username') Username:
+                  div.controls
+                    input#username.input-xlarge(type='text', name='username', placeholder='Username', required, data-validation-regex-regex='[a-zA-Z0-9_]+', data-validation-regex-message='Username has invalid charaters', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6', data-validation-ajax-ajax='/parttimer/check-username')
+                    p.help-block
+
+                div.control-group
+                  label.control-label(for='email') Email:
+                  div.controls
+                    input#email.input-xlarge(type='email', name='email', required, data-validation-email-message='Email is invalid', data-validation-ajax-ajax='/parttimer/check-email', placeholder='Email')
+                    p.help-block
+
+                div.control-group
+                  label.control-label(for='password') Password:
+                  div.controls
+                    input#password(type='password', name='password', required, placeholder='Password', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6')
+                    p.help-block
+
+                div.control-group
+                  label.control-label(for='passwordConfirm') Password Confirmation:
+                  div.controls
+                    input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='Password and password confirmation must match', placeholder='Password Confirmation')
+                    p.help-block
+
+                div.control-group.register-submit
+                  div.controls
+                    button.btn.btn-large(type='submit') Create
