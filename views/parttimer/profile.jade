@@ -1,0 +1,121 @@
+extends ../layout
+
+append head
+  link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.4/leaflet.css')
+  //if lte IE 8
+    link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css')
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.offset3
+        a(href="/parttimer") Manage Parttimer
+      li.active
+        a(href="#") #{ user.username }'s Profile
+
+  if typeof(message) !== 'undefined' && message.length !== 0
+    #message-box
+    .row
+      .alert.alert-error.span6.offset6.message-parttimer
+          button.close(type='button', data-dismiss='alert') x
+          =message
+
+  #profile-box.span12.offset2.row
+    #details.span4.thumbnail
+      img(src='http://49.212.161.19:3050/#{ user.profilePhoto }')
+
+      .caption
+        h4=user.username
+        p
+          ul
+            li
+              strong Email: 
+              |   #{ user.email }
+
+            if user.gender 
+              li
+                strong Gender:
+                |  #{ user.gender }
+
+            if user.about
+              li
+                strong About:
+                |  #{ user.about }
+
+            if user.birthday
+              li
+                strong Birthday:
+                |  #{ user.birthday }
+
+            if user.screenName
+              li
+                strong Screen Name:
+                |  #{ user.screenName }
+
+            if user.occupation
+              li
+                strong Occupation:
+                |  #{ user.occupation }
+
+            if user.bloodType
+              li
+                strong Blood Type:
+                |  #{ user.bloodType }
+
+            if user.lastLocation.name
+              li
+                strong Last Location: 
+                |  #{ user.lastLocation.name }
+            li
+              strong Status:&nbsp; 
+                if user.status === 'online'
+                  span.label.label-success=user.status.toUpperCase()
+                else if user.status === 'offline'
+                  span.label=user.status.toUpperCase()
+                else
+                  span.label.label-important=user.status.toUpperCase()
+        p
+          #profile-options
+            if user.status === 'banned'
+              a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
+            else
+              a.btn.span1(href='/user/ban/#{ user.id }') Ban
+            a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+
+        p
+          a#reset-password.btn.span2.btn-warning(href='#reset-modal', data-toggle='modal') Reset Password
+
+    #map-box.span6
+      input#latitude(type='hidden', value='#{ user.lastLocation.coords[1] }')
+      input#longitude(type='hidden', value='#{ user.lastLocation.coords[0] }')
+      input#user-id(type='hidden', value='#{ user.id }')
+      #map
+
+  #reset-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='resetPasswordLabel', aria-hidden='true')
+    form#create-parttimer.form(action='/parttimer/#{ user.id }/change-password', method='post')
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') x
+        h3#reset-password-label Reset Password
+      .modal-body
+        .offset2
+          div.control-group
+            input(type='hidden', name='_csrf', value=token)
+
+          div.control-group
+            label.control-label(for='password') New Password:
+            div.controls
+              input#password(type='password', name='password', required, placeholder='Password', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6')
+              p.help-block
+
+          div.control-group
+            label.control-label(for='passwordConfirm') Password Confirmation:
+            div.controls
+              input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='Password and password confirmation must match', placeholder='Password Confirmation')
+              p.help-block
+      .modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+        button.btn(type='submit') Change Password
+
+
+prepend scripts
+  script(src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js")
