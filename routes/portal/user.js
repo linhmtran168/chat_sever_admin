@@ -167,14 +167,23 @@ module.exports = {
         user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
       }
 
-      // If there is a user render the profile page
-      res.render('user/profile', {
+      if (user.type === 'fake') {
+        // If there is a user render the profile page for partimer 
+        return res.render('parttimer/profile', {
+          title: 'Part-timer Profile',
+          slug: 'parttimer',
+          user: user,
+          message: req.flash('message')
+        });
+      } 
+      
+      // Render the profile page for user
+      return res.render('user/profile', {
         title: 'User Profile',
         slug: 'user',
         user: user
       });
       
-
     });
   },
 
@@ -192,12 +201,13 @@ module.exports = {
       }
 
 
-      // Re-render the user profile
-      res.render('user/profile', {
-        title: 'User Profile',
-        slug: 'user',
-        user: user
-      });
+      if (user.type === 'fake') {
+        // If there is a user render the profile page for partimer 
+        return res.redirect('/parttimer/' + user.id);
+      } 
+      
+      // Render the profile page for user
+      return res.redirect('/user/' + user.id);
     });
   },
 
@@ -217,11 +227,13 @@ module.exports = {
       console.log(util.inspect(user));
 
       // Re-render the user profile
-      res.render('user/profile', {
-        title: 'User Profile',
-        slug: 'user',
-        user: user
-      });
+      if (user.type === 'fake') {
+        // If there is a user render the profile page for partimer 
+        return res.redirect('/parttimer/' + user.id);
+      } 
+      
+      // Render the profile page for user
+      return res.redirect('/user/' + user.id);
     });
   },
 
@@ -236,11 +248,7 @@ module.exports = {
       // If error rerender the page
       if (err) {
         // Re-render the user profile
-        return res.render('user/profile', {
-          title: 'User Profile',
-          slug: 'user',
-          user: user
-        });
+        return res.redirect('/');
       }
 
       // Delete the profile photo
@@ -296,7 +304,11 @@ module.exports = {
 
       // Create the flash message and redirect
       req.flash('message', 'Successfully delete user');
-      res.redirect('/');
+      if (user.type === 'fake') {
+        return res.redirect('parttimer');
+      }
+      
+      return res.redirect('/');
     });
   }
 };

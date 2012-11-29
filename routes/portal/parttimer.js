@@ -71,6 +71,62 @@ Parttimer.prototype.searchParttimer = function(req, res) {
   });
 };
 
+
+
+/*
+ * Function to create a new parttimer
+ */
+Parttimer.prototype.createParttimer = function(req, res) {
+  // Create new user instance
+  var user = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    type: 'fake',
+  });
+
+  // Save the new user 
+  user.save(function(err) {
+    if (err) {
+      console.log('Error: \n' + util.inspect(err));
+      req.flash('message', 'There is problem saving new parttimer');
+      res.redirect(500, '/parttimer');
+    } else {
+      console.log('Save parttimer successfully');
+      req.flash('message', 'Successfully create new parttimer! If you want to change parttimer detail, visit parttimer portal');
+      res.redirect('/parttimer');
+    }
+  });
+};
+
+/*
+ * Function to reset password for a parttimer
+ */
+Parttimer.prototype.changePassword = function(req, res) {
+  // Find the corresponding user with the user id
+  User.findById(req.params.id,function(err, user) {
+    if (err) {
+      return res.redirect('/parttimer/' + req.params.id);
+    }
+
+    if (!user) {
+      return res.redirect('/parttimer');
+    }
+
+    user.password = req.body.password;
+    user.save(function(err) {
+      if (err) {
+        console.log('Error: \n' + util.inspect(err));
+        req.flash('message', 'There is problem chaning password');
+        return res.redirect(500, '/parttimer/' + user.id);
+      }
+
+      req.flash('message', 'Successfully change passsword for this parttimer');
+      return res.redirect('/parttimer/' + user.id);
+    });
+  });
+};
+
 /*
  * Function to validate the uniqueness of username
  */
@@ -136,32 +192,6 @@ Parttimer.prototype.checkEmail = function(req, res) {
 };
 
 /*
- * Function to create a new parttimer
- */
-Parttimer.prototype.createParttimer = function(req, res) {
-  // Create new user instance
-  var user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    type: 'fake',
-  });
-
-  // Save the new user 
-  user.save(function(err) {
-    if (err) {
-      console.log('Error: \n' + util.inspect(err));
-      req.flash('message', 'There is problem saving new parttimer');
-      res.redirect(500, '/parttimer');
-    } else {
-      console.log('Save parttimer successfully');
-      req.flash('message', 'Successfully create new parttimer! If you want to change parttimer detail, visit parttimer portal');
-      res.redirect('/parttimer');
-    }
-  });
-};
-
-/*
  * Function to validate parttimer (double check)
  */
 Parttimer.prototype.validateParttimer = function(req, res, next) {
@@ -180,6 +210,27 @@ Parttimer.prototype.validateParttimer = function(req, res, next) {
   if (errors) {
     console.log("Error: \n" + util.inspect(errors));
     res.redirect('/parttimer');
+  } else {
+    next();
+  }
+};
+
+/*
+ * Function to validate parttimer password (double check)
+ */
+Parttimer.prototype.validatePassword = function(req, res, next) {
+    // Create rule for validate user instance
+    req.check('password', 'Password must not be empty').notEmpty();
+    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
+    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+
+  // Create the mapped errors array
+  var errors = req.validationErrors(true);
+
+  // If there is error redirect
+  if (errors) {
+    console.log("Error: \n" + util.inspect(errors));
+    res.redirect('/parttimer/' + req.params.id);
   } else {
     next();
   }

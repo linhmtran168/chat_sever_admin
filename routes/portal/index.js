@@ -51,8 +51,22 @@ module.exports = function(app) {
   app.get('/parttimer/check-email', helpers.ensureAuthenticated, parttimerCtrl.checkEmail);
 
   // Route for create a new parttimer
-  app.post('/parttimer/create-parttimer', [helpers.ensureAuthenticated, helpers.csrf], parttimerCtrl.createParttimer);
+  app.post('/parttimer/create-parttimer', [helpers.ensureAuthenticated, parttimerCtrl.validateParttimer, helpers.csrf], parttimerCtrl.createParttimer);
 
+  // Route for showing a parttimer profile
+  app.get('/parttimer/:id', [helpers.ensureAuthenticated, helpers.csrf], parttimerCtrl.showProfile);
+
+  // Route for banning a user
+  app.get('/parttimer/ban/:id', helpers.ensureAuthenticated, parttimerCtrl.banUser);
+  
+  // Route for reenabling a user
+  app.get('/parttimer/enable/:id', helpers.ensureAuthenticated, parttimerCtrl.enableUser);
+
+  // Route for deleting a user
+  app.get('/parttimer/delete/:id', helpers.ensureAuthenticated, parttimerCtrl.deleteUser);
+
+  // Route for changing password for a user
+  app.post('/parttimer/:id/change-password', [helpers.ensureAuthenticated, parttimerCtrl.validatePassword, helpers.csrf], parttimerCtrl.changePassword);
 
   /*
    * ============== Route for admin
