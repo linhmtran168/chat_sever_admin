@@ -159,7 +159,7 @@ module.exports = {
 
       // Change the birthday of User
       if (!_.isUndefined(user.birthday) && !_.isEmpty(user.birthday)) {
-        user.birthday = moment.unix(parseInt(user.birthday, 10)).format('MMMM Do YYYY');
+        user.birthday = moment.unix(parseInt(user.birthday, 10)).format('DD/MM/YYYY');
       }
 
       // Change the format of the gender

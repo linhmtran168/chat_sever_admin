@@ -304,7 +304,7 @@
             '</div>' +
           '</div>' + '</li>';
 
-        console.log(gridHtml);
+        // console.log(gridHtml);
 
       });
 

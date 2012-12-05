@@ -26,64 +26,62 @@ block content
 
       .caption
         h4=user.username
-        p
-          ul
+        ul
+          li
+            strong Email: 
+            |   #{ user.email }
+
+          if user.gender 
             li
-              strong Email: 
-              |   #{ user.email }
+              strong Gender:
+              |  #{ user.gender }
 
-            if user.gender 
-              li
-                strong Gender:
-                |  #{ user.gender }
-
-            if user.about
-              li
-                strong About:
-                |  #{ user.about }
-
-            if user.birthday
-              li
-                strong Birthday:
-                |  #{ user.birthday }
-
-            if user.screenName
-              li
-                strong Screen Name:
-                |  #{ user.screenName }
-
-            if user.occupation
-              li
-                strong Occupation:
-                |  #{ user.occupation }
-
-            if user.bloodType
-              li
-                strong Blood Type:
-                |  #{ user.bloodType }
-
-            if user.lastLocation.name
-              li
-                strong Last Location: 
-                |  #{ user.lastLocation.name }
+          if user.about
             li
-              strong Status:&nbsp; 
-                if user.status === 'online'
-                  span.label.label-success=user.status.toUpperCase()
-                else if user.status === 'offline'
-                  span.label=user.status.toUpperCase()
-                else
-                  span.label.label-important=user.status.toUpperCase()
-        p
-          #profile-options
-            if user.status === 'banned'
-              a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
-            else
-              a.btn.span1(href='/user/ban/#{ user.id }') Ban
-            a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+              strong About:
+              |  #{ user.about }
 
-        p
-          a#reset-password.btn.span2.btn-warning(href='#reset-modal', data-toggle='modal') Reset Password
+          if user.birthday
+            li
+              strong Birthday:
+              |  #{ user.birthday }
+
+          if user.screenName
+            li
+              strong Screen Name:
+              |  #{ user.screenName }
+
+          if user.occupation
+            li
+              strong Occupation:
+              |  #{ user.occupation }
+
+          if user.bloodType
+            li
+              strong Blood Type:
+              |  #{ user.bloodType }
+
+          if user.lastLocation.name
+            li
+              strong Last Location: 
+              |  #{ user.lastLocation.name }
+          li
+            strong Status:&nbsp; 
+              if user.status === 'online'
+                span.label.label-success=user.status.toUpperCase()
+              else if user.status === 'offline'
+                span.label=user.status.toUpperCase()
+              else
+                span.label.label-important=user.status.toUpperCase()
+
+        #profile-options
+          if user.status === 'banned'
+            a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
+          else
+            a.btn.span1(href='/user/ban/#{ user.id }') Ban
+          a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+
+        a#reset-password.btn.span2.btn-warning(href='#reset-modal', data-toggle='modal') Reset Password
 
     #map-box.span6
       input#latitude(type='hidden', value='#{ user.lastLocation.coords[1] }')
