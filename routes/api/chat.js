@@ -97,7 +97,7 @@ module.exports = {
         // Return the list of conversations
         return res.json({
           status: 1,
-          conversations: conversations,
+          conversations: conversations.reverse(),
           message: 'Successfully got the list of conversations for this user'
         });
       });
