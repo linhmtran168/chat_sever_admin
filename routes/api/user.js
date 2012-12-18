@@ -57,6 +57,7 @@ module.exports = {
             email: user.email,
             accessToken: user.accessToken,
             loggedIn: user.loggedIn,
+            type: user.type
           },
           message: 'Successfully register the user'
         });
@@ -104,6 +105,7 @@ module.exports = {
               email: user.email,
               accessToken: user.accessToken,
               loggedIn: user.loggedIn,
+              type: user.type
             },
             message: 'Successfully login the user'
           });
