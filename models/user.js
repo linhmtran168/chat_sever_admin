@@ -29,6 +29,7 @@ var userSchema = new Schema({
     coords: { type: Array, index: '2d' }
   },
   expirationDate: { type: String },
+  point: { type: Number, min: 0, default: 10 },
   favoriteUsers: [{ type: ObjectId, ref: 'User' }],
   viewedUsers: [{ type: ObjectId, ref: 'User' }],
   viewedBy: [{ type: ObjectId, ref: 'User' }],
