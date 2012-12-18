@@ -52,6 +52,9 @@ module.exports = function(app) {
   // Route for usr to clear the list of recent users that viewed user's profile
   app.delete('/api/user/clear/recently-viewed-by', helpers.checkForAccessToken, userCtrl.clearRecentlyViewedBy);
 
+  // Route for a user update their success purchase
+  app.post('/api/user/purchase', helpers.checkForAccessToken, userCtrl.purchaseTime);
+
   // Route for a user to edit their profile
   app.put('/api/user/update', [helpers.checkForAccessToken, userCtrl.checkUpdateParams], userCtrl.updateProfile);
   // Route for getting a user info

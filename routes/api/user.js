@@ -13,13 +13,15 @@ module.exports = {
   register: function(req, res) {
     "use strict";
     // Create the new user instance
+    var now = Math.round(+new Date()/1000);
     var user = new User({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       status: 'online',
       type: 'real',
-      loggedIn: Math.round(+new Date()/1000)
+      loggedIn: now,
+      expirationDate: now + 2592000
     });
 
     // Save the new user 
@@ -323,6 +325,80 @@ module.exports = {
           });
         });
       }
+    });
+  },
+
+  /*
+   * Function to update user's in-app purchase information 
+   */
+  purchaseTime: function(req, res) {
+    // Check for a type param in the request
+    if (_.isUndefined(req.body.type) || _.indexOf([1, 2, 3, 4], parseInt(req.body.type, 10)) === -1) {
+      return res.json({
+        status: 0,
+        error: {
+          type: 'api',
+          message: 'Wrong type param'
+        }
+      });
+    }
+
+    // Get the current user instance 
+    User.findById(req.currentUserId, '-hash -accessToken -loggedIn -createdAt -updatedAt', function(err, user) {
+      // If a error occurred
+      if (err) {
+        return res.json({
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      var type = parseInt(req.body.type, 10);
+      var now = Math.round(+new Date()/1000);
+
+      // Update the expirationDate field
+      switch(type) {
+
+        case 1:
+          user.expirationDate = now + 2592000;
+          break;
+
+        case 2:
+          user.expirationDate = now + 2592000 * 3;
+          break;
+
+        case 3:
+          user.expirationDate = now + 2592000 * 6;
+          break;
+        
+        case 4:
+          user.expirationDate = now + 2592000 * 12;
+          break;
+      }
+
+      // Save the user 
+      user.save(function(err) {
+        // If a error occurs
+        if (err) {
+          return res.json({
+            status: 0,
+            error: {
+              type: 'system',
+              message: 'System Error'
+            }
+          });
+        }
+
+        return res.json({
+          status: 1,
+          user: user,
+          message: 'Successfully update the the user\'s purchase information'
+        });
+
+      });
     });
   },
 

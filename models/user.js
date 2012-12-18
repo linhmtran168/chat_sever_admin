@@ -28,6 +28,7 @@ var userSchema = new Schema({
     name: { type: String, index: true },
     coords: { type: Array, index: '2d' }
   },
+  expirationDate: { type: String },
   favoriteUsers: [{ type: ObjectId, ref: 'User' }],
   viewedUsers: [{ type: ObjectId, ref: 'User' }],
   viewedBy: [{ type: ObjectId, ref: 'User' }],
