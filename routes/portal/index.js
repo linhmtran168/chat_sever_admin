@@ -8,6 +8,8 @@ module.exports = function(app) {
   // Load controllers
   var userCtrl = require('./user')
     , testCtrl = require('./test')
+    , giftCtrl = require('./gift')
+    , catCtrl = require('./category')
     , parttimerCtrl = require('./parttimer')
     , adminCtrl = require('./admin');
 
@@ -67,6 +69,22 @@ module.exports = function(app) {
 
   // Route for changing password for a user
   app.post('/parttimer/:id/change-password', [helpers.ensureAuthenticated, parttimerCtrl.validatePassword, helpers.csrf], parttimerCtrl.changePassword);
+
+  /*
+   * ============== Route for gift
+   */
+  // Main gift route
+  app.get('/gift', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.index);
+
+  /*
+   * ============== Route for category
+   */
+  // Main category route
+  app.get('/gift/categories', [helpers.ensureAuthenticated, helpers.csrf], catCtrl.index);
+  // Route to add new category
+  app.post('/category/add', helpers.ensureAuthenticated, catCtrl.add);
+  // Route to check category name
+  app.get('/category/check-name', helpers.ensureAuthenticated, catCtrl.checkName);
 
   /*
    * ============== Route for admin

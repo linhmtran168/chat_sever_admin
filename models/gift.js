@@ -12,6 +12,7 @@ var mongoose = require('mongoose')
 var giftSchema = new Schema({
   name: { type: String, required: true, index: true },
   cost: { type: Number, required: true, index: true },
+  category: { type: ObjectId, ref: 'Category', index: true },
   description: { type: String },
   image: { type: String },
   createdAt: { type: Date, default: Date.now, index:true },

@@ -6,14 +6,19 @@ div.navbar.navbar-static-top
       if currentUser
         ul.nav
           if slug === 'user'
-            li.active: a(href='/user') User Management
+            li.active: a(href='/user') User 
           else
-            li: a(href='/user') User Management
+            li: a(href='/user') User 
             
           if slug === 'parttimer'
-            li.active: a(href='/parttimer') Parttimer Management
+            li.active: a(href='/parttimer') Parttimer 
           else
-            li: a(href='/parttimer') Parttimer Management
+            li: a(href='/parttimer') Parttimer 
+
+          if slug === 'gift'
+            li.active: a(href='/gift') Gift
+          else
+            li: a(href='/gift') Gift
 
         ul.nav.pull-right
           li.divider-vertical

@@ -70,4 +70,8 @@ $(function() {
    */
   $('#create-parttimer input').not('[type=submit]').jqBootstrapValidation();
 
+  /*
+   * Create category form validation
+   */
+  $('#create-cat-modal input').not('[type=submit]').jqBootstrapValidation();
 });

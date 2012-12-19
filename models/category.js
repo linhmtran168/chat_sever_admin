@@ -10,7 +10,7 @@ var mongoose = require('mongoose')
 
 // Design the schema
 var categorySchema = new Schema({
-  name: { type: String, required: true, index: true },
+  name: { type: String, required: true, index: { unique: true } },
   description: { type: String },
   createdAt: { type: Date, default: Date.now, index:true },
   updatedAt: { type: Date, default: Date.now, index: true }
@@ -18,7 +18,7 @@ var categorySchema = new Schema({
 
 
 // Before saving, update timestamp
-giftSchema.pre('save', function(next) {
+categorySchema.pre('save', function(next) {
   // Update timestamp
   this.updatedAt = new Date();
 
