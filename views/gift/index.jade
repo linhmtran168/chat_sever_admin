@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.active.offset3
+        a(href="/gift") Manage Gift
+
+  #gift-store.row.offset2
+    if typeof(message) !== 'undefined' && message.length !== 0
+      #message-box
+      .row
+        .alert.alert-error.span6.offset6.message-parttimer
+            button.close(type='button', data-dismiss='alert') x
+            =message
+
+    #left-nav.span3
+      ul.nav.nav-list
+        li.nav-header Categories
+        li.divider
+        li
+          a(href='/gift/categories') Manage categories
+        li
+          a(href='/gift/add') Add new gift
+
+    #gifts.span10
+      #notify-box.row.offset2
+        p.lead.text-info There is no gift right now
+

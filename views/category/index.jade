@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.offset3
+        a(href="/gift") Manage Gift
+      li.active
+        a(href="/gift/categories") Manage Categories
+
+  if typeof(message) !== 'undefined' && message.length !== 0
+    #message-box
+    .row
+      .alert.alert-error.span6.offset6.message-parttimer
+          button.close(type='button', data-dismiss='alert') x
+          =message
+  #category-box.row.offset2
+    if categories.length === 0
+      #no-category.span10.offset2
+        p.lead.text-info There is no category right now. Please create one
+        a#create-cat.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') Create Category
+    else
+      .row
+        #cat-table.span9.offset3
+          table.categories-table.table.table-bordered.table-hover
+            tr
+              th Category Name
+              th Description
+              th Operation
+            for category in categories
+              tr
+                td.category-name=category.name
+                td.category-description=category.description
+                td
+                  a#update-cat-but.btn.btn-info Update
+                td
+                  a#delete-cat-but.btn.btn-danger Delete
+
+      .row
+        a#create-cat.offset6.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') Create Category
+
+  
+  #create-cat-modal.span5.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='category-modal', aria-hidden='true')
+    form(action='/category/add', method='post')
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') x
+        h3#category-modal Create New Category
+
+      .modal-body
+        input(type='hidden', name='_csrf', value=token)
+        #new-cat-form
+          div.control-group
+            label.control-label(for='password') Password:
+            div.controls
+              input#name.span4(type='text', name='name', required, placeholder='Category Name', data-validation-ajax-ajax='/category/check-name')
+              p.help-block
+
+          div.control-group
+            label.control-label(for='description') Description:
+            div.controls
+              textarea.span4#description(placeholder='Category Description')
+              p.help-block
+
+      .modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+        button.btn.btn-primary(type='submit') Save Category
