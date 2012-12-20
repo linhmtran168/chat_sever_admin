@@ -26,15 +26,15 @@ block content
             tr
               th Category Name
               th Description
-              th Operation
+              th(colspan='2') Operation
             for category in categories
               tr
                 td.category-name=category.name
                 td.category-description=category.description
                 td
-                  a#update-cat-but.btn.btn-info Update
+                  a#update-cat-but.btn.btn-info(data-toggle='modal', href='/category/update-view/#{ category.id }', data-target='#update-cat-modal') Update
                 td
-                  a#delete-cat-but.btn.btn-danger Delete
+                  a#delete-cat-but.btn.btn-danger(href='/category/delete/#{ category.id }') Delete
 
       .row
         a#create-cat.offset6.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') Create Category
@@ -50,7 +50,7 @@ block content
         input(type='hidden', name='_csrf', value=token)
         #new-cat-form
           div.control-group
-            label.control-label(for='password') Password:
+            label.control-label(for='name') Category Name:
             div.controls
               input#name.span4(type='text', name='name', required, placeholder='Category Name', data-validation-ajax-ajax='/category/check-name')
               p.help-block
@@ -58,8 +58,21 @@ block content
           div.control-group
             label.control-label(for='description') Description:
             div.controls
-              textarea.span4#description(placeholder='Category Description')
+              textarea.span4#description(name='description', placeholder='Category Description')
               p.help-block
+
+      .modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+        button.btn.btn-primary(type='submit') Save Category
+
+  #update-cat-modal.span5.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='category-modal', aria-hidden='true')
+    form(action='/category/update', method='post')
+      input(type='hidden', name='_csrf', value=token)
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') x
+        h3#update-modal Create New Category
+
+      .modal-body
 
       .modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Cancel

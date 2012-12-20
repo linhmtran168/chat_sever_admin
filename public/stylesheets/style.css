@@ -5156,3 +5156,16 @@ a.badge:hover {
 #create-cat-modal .modal-footer button {
   margin-left: 20px;
 }
+#update-cat-modal {
+  width: 400px;
+  margin-left: -180px;
+}
+#update-cat-modal #update-cat-form {
+  margin-left: 20px;
+}
+#update-cat-modal .modal-footer {
+  text-align: center;
+}
+#update-cat-modal .modal-footer button {
+  margin-left: 20px;
+}

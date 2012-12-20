@@ -85,6 +85,12 @@ module.exports = function(app) {
   app.post('/category/add', helpers.ensureAuthenticated, catCtrl.add);
   // Route to check category name
   app.get('/category/check-name', helpers.ensureAuthenticated, catCtrl.checkName);
+  // Route to delete category
+  app.get('/category/delete/:id', helpers.ensureAuthenticated, catCtrl.delete);
+  // Route to render update view for a category
+  app.get('/category/update-view/:id', helpers.ensureAuthenticated, catCtrl.updateView);
+  // Route to update a category
+  app.post('/category/update', helpers.ensureAuthenticated, catCtrl.update);
 
   /*
    * ============== Route for admin

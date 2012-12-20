@@ -13,7 +13,7 @@ module.exports = {
    */
   index: function(req, res) {
     // Find all the categories in the database 
-    Category.find({}, function(err, categories) {
+    Category.find({}, null, { sort: 'name' }, function(err, categories) {
       // if err, redirect
       if (err) {
         return res.redirect('/gift');
@@ -51,6 +51,10 @@ module.exports = {
       category.description = req.body.description;
     }
 
+    // Log
+    // console.log(req.body.description);
+    // console.log(category);
+
     // Attempt to save the category
     category.save(function(err) {
       if (err) {
@@ -65,17 +69,97 @@ module.exports = {
   },
 
   /*
+   * Function to render the update category modal
+   */
+  updateView: function(req, res) {
+    // Get the id
+    var categoryId = req.param('id');
+
+    // Find the category 
+    Category.findById(categoryId, function(err, category) {
+      if (err) {
+        // Re-render the user profile
+        req.flash('message', 'There is error deleting the category');
+        return res.redirect('/gift/categories');
+      }
+
+      if (!category) {
+        req.flash('message', 'There is no category with this id');
+        return res.redirect('/gift/categories');
+      }
+
+      // Render the partial
+      return res.render('partials/updateCat', {
+        category: category
+      });
+    });
+  },
+
+  /*
    * Function to update a category
    */
   update: function(req, res) {
+    // Get the id
+    var categoryId = req.body.id;
 
+    // Check for category name
+    if (_.isUndefined(req.body.name)) {
+      req.flash('message', 'Category name is missing');
+      return res.redirect('/gift/categories');
+    }
+
+    Category.findById(categoryId, function(err, category) {
+      if (err) {
+        // Re-render the user profile
+        req.flash('message', 'There is error deleting the category');
+        return res.redirect('/gift/categories');
+      }
+
+      if (!category) {
+        req.flash('message', 'There is no category with this id');
+        return res.redirect('/gift/categories');
+      }
+
+      // Update the category
+      category.name = req.body.name;
+      if (req.body.description) {
+        category.description = req.body.description;
+      }
+
+      // Attemp to save the category
+      category.save(function(err) {
+        if (err) {
+          // Re-render the user profile
+          req.flash('message', 'There is error deleting the category');
+          return res.redirect('/gift/categories');
+        }
+
+        // Success
+        req.flash('message', 'Successfully updated the category');
+        return res.redirect('/gift/categories');
+      });
+    });
   },
 
   /*
    * Function to delete a category
    */
   delete: function(req, res) {
+    // Get category id
+    var categoryId = req.param('id');
 
+    Category.findByIdAndRemove(categoryId, function(err, category){
+      // If error rerender the page
+      if (err) {
+        // Re-render the user profile
+        req.flash('message', 'There is error deleting the category');
+        return res.redirect('/gift/categories');
+      }
+
+      // Create the success messge
+      req.flash('message', 'Successfully deleting the category');
+      return res.redirect('/gift/categories');
+    });
   },
 
   /*

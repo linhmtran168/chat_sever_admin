@@ -1,0 +1,13 @@
+#update-cat-form
+  div.control-group
+    input(type='hidden', name='id', value='#{ category.id }')
+    label.control-label(for='name') Category Name:
+    div.controls
+      input#name.span4(type='text', name='name', required, placeholder='Category Name', data-validation-ajax-ajax='/category/check-name', value='#{ category.name }')
+      p.help-block
+
+  div.control-group
+    label.control-label(for='description') Description:
+    div.controls
+      textarea.span4#description(name='description', placeholder='Category Description')=category.description
+      p.help-block
