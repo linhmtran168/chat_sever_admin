@@ -5131,6 +5131,17 @@ a.badge:hover {
 #gifts #notify-box {
   margin-top: 20px;
 }
+#gifts .thumbnail-img-div {
+  height: 130px;
+  overflow: hidden;
+  position: relative;
+}
+#gifts .thumbnail-img-div img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
 /* Category index view */
 #category-box #no-category {
   text-align: center;
@@ -5167,5 +5178,15 @@ a.badge:hover {
   text-align: center;
 }
 #update-cat-modal .modal-footer button {
+  margin-left: 20px;
+}
+/* New gift view */
+.new-gift-block .uploaded-image {
+  width: 300px;
+}
+.new-gift-block .image-buttons {
+  margin-top: 5px;
+}
+.new-gift-block .image-buttons a {
   margin-left: 20px;
 }

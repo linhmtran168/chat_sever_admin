@@ -3,6 +3,7 @@
  */
 var helpers = require('./helpers')
   , chatCtrl = require('./chat')
+  , giftCtrl = require('./gift')
   , userCtrl = require('./user');
 
 module.exports = function(app) {
@@ -18,6 +19,22 @@ module.exports = function(app) {
 
   // Route for deleting a user's conversation
   app.delete('/api/chat/conversation/:partnerId', helpers.checkForAcessToken, chatCtrl.deleteConversation);
+
+  /*
+   * ========== Route for gift
+   */
+  // Route to purchase a gift
+  app.post('/api/gift/purchase/:id', helpers.checkForAccessToken, giftCtrl.order);
+  // Route to get an order's detail
+  app.get('/api/order/:id', helpers.checkForAccessToken, giftCtrl.orderDetail);
+  // Route to list a user orders
+  app.get('/api/user/orders', helpers.checkForAccessToken, giftCtrl.listOrders);
+  // Route to list categories
+  app.get('/api/gift/catgories', helpers.checkForAccessToken, giftCtrl.listCategories);
+  // Route to get gift list
+  app.get('/api/gifts', helpers.checkForAccessToken, giftCtrl.list);
+  // Route to get a gift detail
+  app.get('/api/gift/:id', helpers.checkForAccessToken, giftCtrl.detail);
 
   /*
    * ========== Route for user

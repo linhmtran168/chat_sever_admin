@@ -75,6 +75,10 @@ module.exports = function(app) {
    */
   // Main gift route
   app.get('/gift', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.index);
+  // Route to render the new gift view
+  app.get('/gift/add', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.add);
+  // Route to create a new gift
+  app.post('/gift/add', helpers.ensureAuthenticated, giftCtrl.add);
 
   /*
    * ============== Route for category

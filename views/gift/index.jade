@@ -17,6 +17,9 @@ block content
     #left-nav.span3
       ul.nav.nav-list
         li.nav-header Categories
+        for category in categories
+          li
+            a(href='#')=category.name
         li.divider
         li
           a(href='/gift/categories') Manage categories
@@ -24,6 +27,19 @@ block content
           a(href='/gift/add') Add new gift
 
     #gifts.span10
-      #notify-box.row.offset2
-        p.lead.text-info There is no gift right now
+      if gifts.length === 0
+        #notify-box.row.offset2
+          p.lead.text-info There is no gift right now
+      else
+        ul#gifts-grid.thumbnails
+          for gift in gifts
+            li.span2
+              .thumbnail
+                .thumbnail-img-div
+                  a(href='/gift/#{ gift.id }')
+                    img(src='/images/#{ gift.image }')
+                .caption
+                  span
+                    strong=gift.name
+                    span.pull-right #{ gift.cost } pts
 

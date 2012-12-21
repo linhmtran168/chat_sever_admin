@@ -12,7 +12,7 @@ var mongoose = require('mongoose')
 var orderSchema = new Schema({
   orderCode: { type: Number, default: 0, index: { unique: true } },
   user: { type: ObjectId, ref: 'User', index: true },
-  gift: { type: Objectid, ref: 'Gift', index: true },
+  gift: { type: ObjectId, ref: 'Gift', index: true },
   address: { type: String },
   postalCode: { type: String },
   phoneNumber: { type: String },

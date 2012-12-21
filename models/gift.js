@@ -15,6 +15,7 @@ var giftSchema = new Schema({
   category: { type: ObjectId, ref: 'Category', index: true },
   description: { type: String },
   image: { type: String },
+  inStock: { type: Boolean, default: true, index: true },
   createdAt: { type: Date, default: Date.now, index:true },
   updatedAt: { type: Date, default: Date.now, index: true }
 });

@@ -1,5 +1,6 @@
 var fs = require('fs')
   , crypto = require('crypto')
+  , im = require('imagemagick')
   , _ = require('lodash');
 /*
  * Helpers for portal route
@@ -40,6 +41,18 @@ exports.uploadFile = function(file, callback) {
 
   // get the extension of the file
   extension = oldName.substr(oldName.lastIndexOf('.'));
+
+  // Check file type
+  var allowed_extensions = ['.gif', '.GIF', '.png', '.jpeg', '.jpg', '.JPG', '.JPEG'];
+  if (!_.contains(allowed_extensions, extension)) {
+    var err = {
+      type: 'extension',
+      message: 'Please upload an image'
+    };
+
+    return callback(err, false);
+  }
+
   // Create the newName by hashing the file path
   newName = crypto.createHash('md5').update(tmpPath).digest('hex') + extension;
 
@@ -50,8 +63,15 @@ exports.uploadFile = function(file, callback) {
     newPath = './public/images/' + newName;
   }
 
-  // Move the image
-  fs.rename(tmpPath, newPath, function(err) {
+  // resize and move the image
+  im.resize({
+    srcPath: tmpPath,
+    dstPath: newPath,
+    width: 300
+  }, function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    console.log(err);
     callback(err, newName);
   });
 };

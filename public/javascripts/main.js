@@ -74,4 +74,9 @@ $(function() {
    * Create category form validation
    */
   $('#create-cat-modal input').not('[type=submit]').jqBootstrapValidation();
+  
+  /*
+   * Create gift form validatoin
+   */
+  $('#new-gift input').not('[type=submit]').jqBootstrapValidation();
 });

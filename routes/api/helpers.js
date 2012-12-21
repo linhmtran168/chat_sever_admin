@@ -88,11 +88,10 @@ exports.uploadFile = function(file, callback) {
   extension = oldName.substr(oldName.lastIndexOf('.'));
 
   // Check file type
-  var allowed_extensions = ['.png', '.jpeg', '.jpg', '.JPG', '.JPEG'];
+  var allowed_extensions = ['.gif', '.GIF', '.png', '.jpeg', '.jpg', '.JPG', '.JPEG'];
   if (!_.contains(allowed_extensions, extension)) {
     var err = {
       type: 'extension',
-      message: 'Please upload an image'
     };
 
     return callback(err, false);
