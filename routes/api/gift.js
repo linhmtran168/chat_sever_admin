@@ -216,13 +216,15 @@ module.exports = {
         }
 
         // Find the latest inserted order in the database
-        Category.find({}, null, { sort: 'createdAt', limit: '1' }, function(err, orders) {
-          var lastOrder = orders.pop()
+        Order.find({}).sort('-orderCode').limit(1).exec(function(err, orders) {
+          console.log(orders);
+          var lastOrder = orders.shift()
             , orderCode = 1;
 
           // Get the order code
+          console.log(lastOrder);
           if (lastOrder) {
-            orderCode = lastOrder.orderCoder + 1;
+            orderCode = lastOrder.orderCode + 1;
           }
 
           // All are satisfied, create new orders
@@ -240,6 +242,7 @@ module.exports = {
           order.save(function(err) {
             // If err 
             if (err) {
+              console.log(err);
               return res.json({
                 status: 0,
                 error: {
@@ -249,12 +252,31 @@ module.exports = {
               });
             }
 
-            // Return the success message
-            return res.json({
-              status: 1,
-              order: order,
-              message: 'Successfully order the gift'
+            // Save the new points for the user
+            user.points = user.points - gift.cost;
+
+            // Save the user
+            user.save(function(err) {
+
+              // If err 
+              if (err) {
+                return res.json({
+                  status: 0,
+                  error: {
+                    type: 'system',
+                    message: 'System Error'
+                  }
+                });
+              }
+
+              // Return the success message
+              return res.json({
+                status: 1,
+                order: order,
+                message: 'Successfully order the gift'
+              });
             });
+
           });
         });
       });
