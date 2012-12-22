@@ -37,7 +37,10 @@ block content
               .thumbnail
                 .thumbnail-img-div
                   a(href='/gift/#{ gift.id }')
-                    img(src='/images/#{ gift.image }')
+                    if env === 'local'
+                      img(src='/images/#{ gift.image }')
+                    else
+                      img(src='http://49.212.161.19:3050/#{ gift.image }')
                 .caption
                   span
                     strong=gift.name

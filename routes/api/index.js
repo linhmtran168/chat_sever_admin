@@ -30,7 +30,7 @@ module.exports = function(app) {
   // Route to list a user orders
   app.get('/api/user/orders', helpers.checkForAccessToken, giftCtrl.listOrders);
   // Route to list categories
-  app.get('/api/gift/catgories', helpers.checkForAccessToken, giftCtrl.listCategories);
+  app.get('/api/gift/categories', helpers.checkForAccessToken, giftCtrl.listCategories);
   // Route to get gift list
   app.get('/api/gifts', helpers.checkForAccessToken, giftCtrl.list);
   // Route to get a gift detail

@@ -15,49 +15,54 @@ block content
           =message
 
   .row
-    .span7.offset6.new-gift-block
-      form#new-gift.form(action='/gift/add', method='post',
-        enctype='multipart/form-data')
-        input(type='hidden', name='_csrf', value=token)
-        div.offset1.gift-inputs
-          label.control-label(for='image') Gift Image:
-            .fileupload.fileupload-new(data-provides='fileupload')
-              .fileupload-new.thumbnail.align-image
-                img.span4(src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image')
-              .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
-              .image-buttons
-                span.btn.btn-file
-                  span.fileupload-new Select image
-                  span.fileupload-exists Change
-                  input(type='file', name='image')
+    if categories.length === 0
+      #no-category.span10.offset4
+        p.lead.text-info There is no category right now. Please create one, before create a new gift
+        a#create-cat.btn.btn-primary(href='/gift/categories') Category Management
+    else
+      .span7.offset6.new-gift-block
+        form#new-gift.form(action='/gift/add', method='post',
+          enctype='multipart/form-data')
+          input(type='hidden', name='_csrf', value=token)
+          div.offset1.gift-inputs
+            label.control-label(for='image') Gift Image:
+              .fileupload.fileupload-new(data-provides='fileupload')
+                .fileupload-new.thumbnail.align-image
+                  img.span4(src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image')
+                .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
+                .image-buttons
+                  span.btn.btn-file
+                    span.fileupload-new Select image
+                    span.fileupload-exists Change
+                    input(type='file', name='image')
 
-                a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
-            
-          div.control-group
-            label.control-label(for='name') Gift Name:
-            div.controls
-              input#name.input-xlarge(type='text', name='name', placeholder='Gift name', required)
-              p.help-block
+                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
+              
+            div.control-group
+              label.control-label(for='name') Gift Name:
+              div.controls
+                input#name.input-xlarge(type='text', name='name', placeholder='Gift name', required)
+                p.help-block
 
-          div.control-group
-            label.control-label(for='name') Category:
-            div.controls
-              select#category.input-xlarge(name='category')
-                for category in categories
-                  option(value='#{ category.id }')=category.name
-              p.help-block
-          div.control-group
-            label.control-label(for='point') Point Cost:
-            div.controls
-              input#cost.input-large(type='text', name='cost', placeholder='Point', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='Please enter a number', required)
-              p.help-block
+            div.control-group
+              label.control-label(for='name') Category:
+              div.controls
+                select#category.input-xlarge(name='category')
+                  for category in categories
+                    option(value='#{ category.id }')=category.name
+                p.help-block
+            div.control-group
+              label.control-label(for='point') Point Cost:
+              div.controls
+                input#cost.input-large(type='text', name='cost', placeholder='Point', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='Please enter a number', required)
+                p.help-block
 
-          div.control-group
-            label.control-label(for='description') Description:
-            div.controls
-              textarea.span4(name='description', placeholder='Description')
+            div.control-group
+              label.control-label(for='description') Description:
+              div.controls
+                textarea.span4(name='description', placeholder='Description')
 
 
-          div.control-group.register-submit
-            div.controls
-              button.btn.btn-primary(type='submit') Save Gift
+            div.control-group.register-submit
+              div.controls
+                button.btn.btn-primary(type='submit') Save Gift

@@ -118,7 +118,7 @@ module.exports = {
    */
   detail: function(req, res) {
     // Check if there is a gift with the id
-    Gift.findById(req.params.id, function(err, gift) {
+    Gift.findById(req.params.id, '-createdAt -updatedAt').populate('category', '-createdAt -updatedAt').exec(function(err, gift) {
       // If err
       if (err) {
         return res.json({
@@ -305,7 +305,7 @@ module.exports = {
    */
   orderDetail: function(req, res) {
     // Find the order with the id from the param
-    Order.findById(req.params.id, function(err, order) {
+    Order.findById(req.params.id, '-createdAt -updatedAt').populate('gift', '-createdAt -updatedAt').exec(function(err, order) {
       // If err
       if (err) {
         return res.json({

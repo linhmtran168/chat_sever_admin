@@ -37,12 +37,21 @@ module.exports = {
 
         var message = req.flash('message');
 
+        // Create the path for upload image
+        var env;
+        if (process.env.NODE_ENV === 'production') {
+          env = 'server';
+        } else {
+          env = 'local';
+        }
+
         return res.render('gift/index', {
           slug: 'gift',
           title: 'Gift Store',
           categories: categories,
           gifts: gifts,
-          message: message
+          message: message,
+          env: env
         });
       });
     });
@@ -97,7 +106,8 @@ module.exports = {
     // Create the new gift instance
     var gift = new Gift({
       name: req.body.name,
-      cost: req.body.cost
+      cost: req.body.cost,
+      category: req.body.category
     });
 
     // If there is a description
