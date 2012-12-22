@@ -252,6 +252,7 @@ module.exports = {
             // Return the success message
             return res.json({
               status: 1,
+              order: order,
               message: 'Successfully order the gift'
             });
           });
