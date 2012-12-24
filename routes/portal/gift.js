@@ -168,6 +168,7 @@ module.exports = {
    */
   delete: function(req, res) {
 
+    // Function to delete a gift
   },
 
 };
