@@ -42,7 +42,11 @@ block content
                     else
                       img(src='http://49.212.161.19:3050/#{ gift.image }')
                 .caption
-                  span
+                  p
                     strong=gift.name
-                    span.pull-right #{ gift.cost } pts
+                  p 
+                    em #{ gift.cost } pts
+                  p.options
+                    a.pull-left.text-info(href='/gift/#{ gift.id }') More
+                    a.pull-right.text-error(href='/gift/delete/#{ gift.id }') Delete
 

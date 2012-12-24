@@ -79,6 +79,8 @@ module.exports = function(app) {
   app.get('/gift/add', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.add);
   // Route to create a new gift
   app.post('/gift/add', helpers.ensureAuthenticated, giftCtrl.add);
+  // Route to delete a gift
+  app.get('/gift/delete/:id', helpers.ensureAunthenticated, giftCtrl.delete);
 
   /*
    * ============== Route for category

@@ -5131,16 +5131,22 @@ a.badge:hover {
 #gifts #notify-box {
   margin-top: 20px;
 }
-#gifts .thumbnail-img-div {
+#gifts .thumbnail .thumbnail-img-div {
   height: 130px;
   overflow: hidden;
   position: relative;
 }
-#gifts .thumbnail-img-div img {
+#gifts .thumbnail .thumbnail-img-div img {
   position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
+}
+#gifts .thumbnail .caption p {
+  margin-bottom: 0px;
+}
+#gifts .thumbnail .caption .options {
+  height: 15px;
 }
 /* Category index view */
 #category-box #no-category {

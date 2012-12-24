@@ -172,16 +172,28 @@
     margin-top: 20px;
   }
 
-  .thumbnail-img-div {
-    height: 130px;
-    overflow: hidden;
-    position: relative;
+  .thumbnail {
+    .thumbnail-img-div {
+      height: 130px;
+      overflow: hidden;
+      position: relative;
 
-    img {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      margin: auto;
+      img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+
+    .caption {
+      p {
+        margin-bottom: 0px;
+      }
+
+      .options {
+        height: 15px;
+      }
     }
   }
 }
