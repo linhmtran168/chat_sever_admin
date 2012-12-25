@@ -5147,6 +5147,13 @@ a.badge:hover {
 }
 #gifts .thumbnail .caption .options {
   height: 15px;
+  text-align: center;
+}
+#gift-modal .details {
+  width: 280px;
+  float: left;
+  min-height: 1px;
+  margin-left: 20px;
 }
 /* Category index view */
 #category-box #no-category {

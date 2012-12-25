@@ -79,4 +79,30 @@ $(function() {
    * Create gift form validatoin
    */
   $('#new-gift input').not('[type=submit]').jqBootstrapValidation();
+
+  /*
+   * Gift index modal toggle)
+   */
+  // Remove all modal
+  $('#gift-modal').on('hidden', function() {
+    $(this).removeData('modal');
+  });
+
+  $('.gift-more').click(function(e) {
+    e.preventDefault();
+    // Get the gift id
+    var giftId = $(this).data('gift-id');
+    // Get the gift name
+    var giftName = $(this).parents('.caption').find('.gift-name').text();
+    // Chage modal header
+    $('#gift-modal-inner').text(giftName);
+    // Change link
+    $('#edit-gift').attr('href', '/gift/edit/' + giftId);
+    $('#delete-gift').attr('href', '/gift/delete/' + giftId);
+    // Create new modal
+    $('#gift-modal').modal({
+      keyboard: true,
+      remote: '/gift/' + giftId,
+    });
+  });
 });

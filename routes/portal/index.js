@@ -70,17 +70,6 @@ module.exports = function(app) {
   // Route for changing password for a user
   app.post('/parttimer/:id/change-password', [helpers.ensureAuthenticated, parttimerCtrl.validatePassword, helpers.csrf], parttimerCtrl.changePassword);
 
-  /*
-   * ============== Route for gift
-   */
-  // Main gift route
-  app.get('/gift', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.index);
-  // Route to render the new gift view
-  app.get('/gift/add', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.add);
-  // Route to create a new gift
-  app.post('/gift/add', helpers.ensureAuthenticated, giftCtrl.add);
-  // Route to delete a gift
-  app.get('/gift/delete/:id', helpers.ensureAunthenticated, giftCtrl.delete);
 
   /*
    * ============== Route for category
@@ -97,6 +86,24 @@ module.exports = function(app) {
   app.get('/category/update-view/:id', helpers.ensureAuthenticated, catCtrl.updateView);
   // Route to update a category
   app.post('/category/update', helpers.ensureAuthenticated, catCtrl.update);
+
+  /*
+   * ============== Route for gift
+   */
+  // Main gift route
+  app.get('/gift', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.index);
+  // Route to render the new gift view
+  app.get('/gift/add', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.add);
+  // Route to create a new gift
+  app.post('/gift/add', helpers.ensureAuthenticated, giftCtrl.add);
+  // Route to render the edit gift page
+  app.get('/gift/edit/:id', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.update);
+  // Route to update a gift
+  app.post('/gift/edit/:id', helpers.ensureAuthenticated, giftCtrl.update);
+  // Route to delete a gift
+  app.get('/gift/delete/:id', helpers.ensureAuthenticated, giftCtrl.delete);
+  // Route to show a gift detail
+  app.get('/gift/:id', helpers.ensureAuthenticated, giftCtrl.detail);
 
   /*
    * ============== Route for admin

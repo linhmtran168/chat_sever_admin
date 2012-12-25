@@ -1,0 +1,21 @@
+#gift-detail.row
+  .span3
+    if env === 'local'
+      img.img-rounded(src='/images/#{ gift.image }')
+    else
+      img.img-rounded(src='http://49.212.161.19:3050/#{ gift.image }')
+  .details
+    p
+      strong Points costs:
+      |  #{ gift.cost }
+    if gift.description
+      p
+        strong Description:
+        |  #{ gift.description }
+    p
+      strong Category:
+      if gift.category
+        |  #{ gift.category.name }
+      else
+        |  Deleted
+

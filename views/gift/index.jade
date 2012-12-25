@@ -6,20 +6,32 @@ block content
       li.active.offset3
         a(href="/gift") Manage Gift
 
+  if typeof(message) !== 'undefined' && message.length !== 0
+    #message-box
+    .row
+      .alert.alert-error.span6.offset6.message-parttimer
+          button.close(type='button', data-dismiss='alert') x
+          =message
+
   #gift-store.row.offset2
-    if typeof(message) !== 'undefined' && message.length !== 0
-      #message-box
-      .row
-        .alert.alert-error.span6.offset6.message-parttimer
-            button.close(type='button', data-dismiss='alert') x
-            =message
 
     #left-nav.span3
       ul.nav.nav-list
         li.nav-header Categories
-        for category in categories
+        if typeof(currentCategory) === 'undefined'
+          li.active
+            a(href='/gift') All
+        else
           li
-            a(href='#')=category.name
+            a(href='/gift') All
+        for category in categories
+          if category.id === currentCategory
+            li.active
+              a(href='/gift?category=#{ category.id }')=category.name
+          else
+            li
+              a(href='/gift?category=#{ category.id }')=category.name
+
         li.divider
         li
           a(href='/gift/categories') Manage categories
@@ -36,17 +48,76 @@ block content
             li.span2
               .thumbnail
                 .thumbnail-img-div
-                  a(href='/gift/#{ gift.id }')
+                  a(href='#')
                     if env === 'local'
                       img(src='/images/#{ gift.image }')
                     else
                       img(src='http://49.212.161.19:3050/#{ gift.image }')
                 .caption
                   p
-                    strong=gift.name
+                    strong
+                      span.gift-name=gift.name
                   p 
                     em #{ gift.cost } pts
                   p.options
-                    a.pull-left.text-info(href='/gift/#{ gift.id }') More
-                    a.pull-right.text-error(href='/gift/delete/#{ gift.id }') Delete
+                    a.gift-more.text-info(href='#', data-gift-id='#{ gift.id }') More
 
+      if isPager
+        #pager
+          ul.pager
+            li.previous
+              if pageNum === 1
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled &larr; First
+                else
+                  a(href='/gift?page=1').btn.disabled &larr; First
+              else 
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=1&category=#{ currentCategory }') &larr; First
+                else 
+                  a(href='/gift?page=1') &larr; First
+            li
+              if pageNum === 1
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled Previous
+                else
+                  a(href='/gift?page=1').btn.disabled Previous
+              else 
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=#{ pageNum - 1 }&category=#{ currentCategory }') Previous
+                else
+                  a(href='/gift?page=#{ pageNum - 1 }') Previous
+            li
+              if pageNum === maxPage
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }').btn.disabled Next
+                else
+                  a(href='/gift?page=#{ maxPage }').btn.disabled Next
+              else 
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=#{ pageNum + 1 }&category=#{ currentCategory }') Next
+                else
+                  a(href='/gift?page=#{ pageNum + 1 }') Next
+            li.next
+              if pageNum === maxPage
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }').btn.disabled Last &rarr;
+                else
+                  a(href='/gift?page=#{ maxPage }').btn.disabled Last &rarr;
+              else 
+                if typeof(currentCategory) !== 'undefined'
+                  a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }') Last &rarr;
+                else
+                  a(href='/gift?page=#{ maxPage }') Last &rarr;
+
+    #gift-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='gift-modal-inner', aria-hidden='true')
+
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') x
+        h3#gift-modal-inner 
+
+      .modal-body
+
+      .modal-footer
+        a#edit-gift.btn.btn-info(href='#') Update
+        a#delete-gift.btn.btn-danger(href='#') Delete

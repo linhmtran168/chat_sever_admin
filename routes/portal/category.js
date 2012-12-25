@@ -16,6 +16,7 @@ module.exports = {
     Category.find({}, null, { sort: 'name' }, function(err, categories) {
       // if err, redirect
       if (err) {
+        console.log(err);
         return res.redirect('/gift');
       }
 

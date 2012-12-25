@@ -78,7 +78,7 @@ exports.uploadFile = function(file, callback) {
 
 // Middleware to delete a profilePhoto
 exports.deletePhoto = function(profilePhoto) {
-  var defaultPhotos = ['male_avatar.png', 'female_avatar.png', 'default_avatar.png'];
+  var defaultPhotos = ['male_avatar.png', 'female_avatar.png', 'default_avatar.png', 'noimage.gif'];
   // If profile photo of this user is a default one do nothing
   if (_.indexOf(defaultPhotos, profilePhoto) !== -1) {
     return;
