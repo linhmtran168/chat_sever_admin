@@ -72,9 +72,7 @@ module.exports = {
     req.check('oldPassword', 'Password must not be empty').notEmpty();
     req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
     req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
-    console.log(req.user);
 
-    console.log('abc');
     // Create the mapped errors array
     var errors = req.validationErrors(true);
 
