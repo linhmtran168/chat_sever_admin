@@ -11,7 +11,6 @@ var adminSchema = new Schema({
   adminname: { type: String, required: true, index: { unique: true }},
   email: { type: String, required: true, index: { unique: true }},
   hash: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'parttime'] },
   createdAt: { type: Date, default: Date.now, index: true },
   updatedAt: { type: Date, default: Date.now, index: true }
 });

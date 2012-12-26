@@ -1,0 +1,82 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.offset3
+        a(href='/gift') Manage Gift
+      li.active
+        a(href='/gift/orders') Manage Orders
+
+  #orders.row.offset2
+    input#csrf(type='hidden', value=token)
+    if orders.length === 0
+      #no-order.span10.offset2
+        p.lead.text-info There is no order at this time
+    else
+      #order.offset1.span12
+        table.order-table.table.table-bordered.table-hover.table-striped
+          tr
+            th Code
+            th Order Time
+            th User
+            th Gift
+            th Contact Info
+            th Status
+          for order in orders
+            tr
+              td=order.orderCode
+              td=order.orderTime
+              td
+                a(href='/user/#{ order.user.id }')=order.user.username
+              td
+                a.gift-detail(href='#', data-gift-id='#{ order.gift.id}')=order.gift.name
+              td.contact-td
+                ul
+                  li
+                    strong Address:
+                    |  #{ order.address }
+                  li
+                    strong Postal Code:
+                    |  #{ order.postalCode } 
+                  li
+                    strong Phone Number:
+                    |  #{ order.phoneNumber }
+              td
+                a.order-status(href='#', data-type='select', data-pk=order.id, data-name='status', data-value='#{ order.status }', data-original-title='Select order status', data-url='/gift/order/#{ order.id }')
+
+        if isPage === true
+          #pager
+            ul.pager
+              li.previous 
+                if pageNum === 1
+                  a(href='/gift/orders?page=1').btn.disabled &larr; First
+                else
+                  a(href='/gift/orders?page=1') &larr; First
+              li 
+                if pageNum === 1
+                  a(href='/gift/orders?page=1').btn.disabled Previous
+                else
+                  a(href='/gift/orders?page=#{ pageNum - 1 }') Previous
+              li 
+                if pageNum === maxPage
+                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled Next
+                else
+                  a(href='/gift/orders?page=#{ pageNum + 1 }') Next
+              li.next 
+                if pageNum === maxPage
+                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled Last &rarr;
+                else
+                  a(href='/gift/orders?page=#{ maxPage }') Last &rarr;
+
+           
+  #gift-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='gift-modal-inner', aria-hidden='true')
+
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-hidden='true') x
+      h3#gift-modal-inner 
+
+    .modal-body
+
+    .modal-footer
+      a#edit-gift.btn.btn-info(href='#') Edit Gift

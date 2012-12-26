@@ -1,10 +1,14 @@
 var Category = require('../../models/category')
   , User = require('../../models/user')
   , Gift = require('../../models/gift')
+  , Order = require('../../models/order')
   , helpers = require('./helpers')
+  , moment = require('moment')
   , util = require('util')
   , ObjectId = require('mongoose').Types.ObjectId
   , _ = require('lodash');
+
+moment.lang('jp');
 
 /*
  * Portal route for gift
@@ -45,7 +49,7 @@ module.exports = {
     Category.find({}, null, { sort: 'name' }, function(err, categories) {
       // if err
       if (err) {
-        req.flash('message', 'Wrong page number');
+        req.flash('message', 'There is error getting categories');
         return res.redirect('/');
       }
 
@@ -367,6 +371,7 @@ module.exports = {
     });
   },
 
+
   /*
    * Function to delete a gift
    */
@@ -391,4 +396,116 @@ module.exports = {
     });
   },
 
+  /*
+   * Function to list orders
+   */
+  orders: function(req, res) {
+    var itemsPerPage = 30 
+      , skipItems = 0
+      , pageNum = 1;
+
+    // Get the pageNum in the query
+    if (req.query.page) {
+      req.check('page', 'Cost should be a number').notEmpty().isInt();
+      // Create the mapped errors array
+      var errors = req.validationErrors(true);
+
+      if (errors && errors.length > 0) {
+        req.flash('message', 'Wrong page number');
+        return res.redirect('/');
+      }
+
+      pageNum = parseInt(req.query.page, 10);
+    }
+
+    Order.count({}, function(err, itemsCount) {  
+      // Get the max number of pages
+      var maxNumPage = Math.ceil(itemsCount / itemsPerPage) > 0 ? Math.ceil(itemsCount / itemsPerPage) : 1;
+      // if page Num > max num page
+      if (pageNum > maxNumPage) {
+        pageNum = maxNumPage;
+      }
+
+      // Set there is pagination or not
+      var isPager = true;
+      if (itemsCount <= itemsPerPage) {
+        isPager = false;
+      }
+
+      // Calculate the skipItems
+      skipItems = (pageNum - 1) * itemsPerPage;
+
+      // Get the orders from the database
+      Order.find({}, null, { sort: { 'createdAt' : -1 }, limit: itemsPerPage, skip: skipItems }).populate('user').populate('gift').exec(function(err, orders) {
+        console.log(orders);
+
+        _.each(orders, function(order) {
+          order.orderTime = moment.unix(parseInt(order.orderTime, 10)).format('HH:mm:ss DD/MM/YYYY');
+        });
+        return res.render('gift/orders', {
+          slug: 'gift',
+          title: 'Manage Orders',
+          orders: orders,
+          pageNum: pageNum,
+          maxPage: maxNumPage,
+          isPage: isPager
+        });
+      });
+    });
+  },
+
+  updateOrder: function(req, res) {
+    // Get the id of the order
+    var orderId = req.params.id;
+
+    // if there is no name or value in the body of request send error
+    if (!req.body.name || !req.body.value) {
+      return res.json(400, {
+        status: 0,
+        error: {
+          type: 'system',
+          message: 'Wrong type of request'
+        }
+      });
+    }
+
+    // Find the order
+    Order.findById(orderId, function(err, order) {
+      // If a error orrcures
+      if (err) {
+        console.log(err);
+        return res.json(500, {
+          status: 0,
+          error: {
+            type: 'system',
+            message: 'System Error'
+          }
+        });
+      }
+
+      // Update order status
+      if (req.body.name === 'status') {
+        order.status = req.body.value;
+      }
+
+      // Save the order
+      order.save(function(err) {
+        if (err) {
+          return res.json(500, {
+            status: 0,
+            error: {
+              type: 'system',
+              message: 'System Error'
+            }
+          });
+        }
+
+        // Send the successful message
+        return res.json({
+          status: 1,
+          message: 'Successfully update the user'
+        });
+      });
+    });
+  },
 };

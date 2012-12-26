@@ -102,6 +102,10 @@ module.exports = function(app) {
   app.post('/gift/edit/:id', helpers.ensureAuthenticated, giftCtrl.update);
   // Route to delete a gift
   app.get('/gift/delete/:id', helpers.ensureAuthenticated, giftCtrl.delete);
+  // Route to show latest orders
+  app.get('/gift/orders', [helpers.ensureAuthenticated, helpers.csrf], giftCtrl.orders);
+  // Route to update order status
+  app.post('/gift/order/:id', helpers.ensureAuthenticated, giftCtrl.updateOrder);
   // Route to show a gift detail
   app.get('/gift/:id', helpers.ensureAuthenticated, giftCtrl.detail);
 
@@ -115,6 +119,10 @@ module.exports = function(app) {
     failureRedirect: '/login',
     failureFlash: true,
   })]);
+  // Route to edit info
+  app.get('/admin/account', [helpers.ensureAuthenticated, helpers.csrf], adminCtrl.update);
+  // Route to edit password
+  app.post('/admin/update-password', [helpers.ensureAuthenticated, adminCtrl.checkUpdatePassword], adminCtrl.update);
 
   // Route for logout
   app.get('/logout', helpers.ensureAuthenticated, adminCtrl.logout);

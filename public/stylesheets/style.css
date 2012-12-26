@@ -5209,3 +5209,18 @@ a.badge:hover {
 .new-gift-block .image-buttons a {
   margin-left: 20px;
 }
+/* Order list view */
+#orders #no-order {
+  margin-top: 20px;
+  text-align: center;
+}
+#orders #no-order p {
+  font-size: 24px;
+}
+#orders .order-table th,
+#orders .order-table td {
+  text-align: center;
+}
+#orders .order-table td.contact-td {
+  text-align: left;
+}

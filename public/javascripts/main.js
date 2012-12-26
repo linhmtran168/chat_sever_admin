@@ -81,7 +81,7 @@ $(function() {
   $('#new-gift input').not('[type=submit]').jqBootstrapValidation();
 
   /*
-   * Gift index modal toggle)
+   * Gift index modal toggle
    */
   // Remove all modal
   $('#gift-modal').on('hidden', function() {
@@ -104,5 +104,39 @@ $(function() {
       keyboard: true,
       remote: '/gift/' + giftId,
     });
+  });
+
+  /*
+   * Order index modal
+   */
+  $('.gift-detail').click(function(e) {
+    e.preventDefault();
+    // Get the gift id
+    var giftId = $(this).data('gift-id');
+    // Get the gift name
+    var giftName = $(this).text();
+    // Chage modal header
+    $('#gift-modal-inner').text(giftName);
+    // Change link
+    $('#edit-gift').attr('href', '/gift/edit/' + giftId);
+    // Create new modal
+    $('#gift-modal').modal({
+      keyboard: true,
+      remote: '/gift/' + giftId,
+    });
+  });
+
+  /*
+   * Order editable initialization
+   */
+  $('.order-status').editable({
+    source: [
+      { value: 'untouched', text: 'Waiting Confirmation' },
+      { value: 'contacted', text: 'Confirmed' },
+      { value: 'done', text: 'Processed' }
+    ],
+    params: {
+      '_csrf': $('#csrf').val(),
+    }
   });
 });

@@ -1,3 +1,6 @@
+var _ = require('lodash')
+  , bcrypt = require('bcrypt')
+  , Admin = require('../../models/admin');
 /*
  * Admin route
  */
@@ -13,6 +16,49 @@ module.exports = {
     });
   },
 
+  /*
+   * Function for a admin to update his info
+   */
+  update: function(req, res) {
+    if (req.method !== 'POST') {
+      // Get the message
+      var message = req.flash('message');
+
+      return res.render('admin/update', {
+        title: 'Admin Account',
+        message: message
+      });
+    } 
+
+    // Post parameter
+    // Get the admin from the databaose
+    Admin.findById(req.user.id, function(err, admin) {
+      // Error 
+      if (err) {
+        console.log(err);
+        req.flash('message', 'System Error');
+        return res.redirect('/');
+      }
+
+      // Change password
+      admin.password = req.body.password;
+
+      // Save the admin
+      admin.save(function(err) {
+        // Error 
+        if (err) {
+          console.log(err);
+          req.flash('message', 'System Error');
+          return res.redirect('/');
+        }
+
+        req.flash('message', 'Successfully changed password for admin');
+        return res.redirect('/admin/account');
+      });
+    });
+   
+  },
+
   /* 
    * Function to logout
    */
@@ -20,4 +66,34 @@ module.exports = {
     req.logout();
     res.redirect('/');
   },
+
+  checkUpdatePassword: function(req, res, next) {
+    // Check for password
+    req.check('oldPassword', 'Password must not be empty').notEmpty();
+    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
+    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+    console.log(req.user);
+
+    console.log('abc');
+    // Create the mapped errors array
+    var errors = req.validationErrors(true);
+
+    if (!_.isEmpty(errors)) {
+      // Get the error messages
+      var msgArray =  _.map(errors, function(error) {
+        return error.msg;
+      });
+
+      req.flash('message', msgArray[msgArray.length - 1]);
+      return res.redirect('/admin/account');
+    }
+    
+    // Check for the old password
+    if (!bcrypt.compareSync(req.body.oldPassword, req.user.hash)) {
+      req.flash('message', 'The old password is wrong');
+      return res.redirect('/admin/account');
+    }
+
+    return next();
+  }
 };
