@@ -360,25 +360,26 @@ module.exports = {
 
       var type = parseInt(req.body.type, 10);
       var now = Math.round(+new Date()/1000);
+      var currentExpDate = parseInt(user.expirationDate, 10);
       console.log('Type: ' + type);
 
       // Update the expirationDate field
       switch(type) {
 
         case 1:
-          user.expirationDate = now + 2592000;
+          user.expirationDate = currenExpDate > now ? currentExpDate + 2592000 : now + 2592000;
           break;
 
         case 2:
-          user.expirationDate = now + 2592000 * 3;
+          user.expirationDate = currentExpDate > now ? currentExpDate + 2592000 * 3 : now + 2592000 * 3;
           break;
 
         case 3:
-          user.expirationDate = now + 2592000 * 6;
+          user.expirationDate = currentExpDate > now ? currentExpDate + 2592000 * 6 : now + 2592000 * 6;
           break;
         
         case 4:
-          user.expirationDate = now + 2592000 * 12;
+          user.expirationDate = currentExpDate > now ? currentExpDate + 2592000 * 12 : now + 2592000 * 12;
           break;
       }
 
