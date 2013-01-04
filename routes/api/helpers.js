@@ -17,7 +17,7 @@ exports.checkForApiKey = function(req, res, next) {
     return res.json({
       status: 0,
       error: {
-        type: 'api',
+        type: 'access',
         message: 'You must provide a correct apiKey'
       } 
     });
