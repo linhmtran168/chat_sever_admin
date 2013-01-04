@@ -367,7 +367,7 @@ module.exports = {
       switch(type) {
 
         case 1:
-          user.expirationDate = currenExpDate > now ? currentExpDate + 2592000 : now + 2592000;
+          user.expirationDate = currentExpDate > now ? currentExpDate + 2592000 : now + 2592000;
           break;
 
         case 2:
