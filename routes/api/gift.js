@@ -89,28 +89,29 @@ module.exports = {
           });
         });
       });
-    }
+    } else {
 
-    // Or get all the gifts
-    Gift.find({}, function(err, gifts) {
-      // If err
-      if (err) {
+      // Or get all the gifts
+      Gift.find({}, function(err, gifts) {
+        // If err
+        if (err) {
+          return res.json({
+            status: 0,
+            error: {
+              type: 'system',
+              message: 'System Error'
+            }
+          });
+        }
+
+        // if success return all the gifts
         return res.json({
-          status: 0,
-          error: {
-            type: 'system',
-            message: 'System Error'
-          }
+          status: 1,
+          gifts: gifts,
+          message: 'Success fully getting all the gifts'
         });
-      }
-
-      // if success return all the gifts
-      return res.json({
-        status: 1,
-        gifts: gifts,
-        message: 'Success fully getting all the gifts'
       });
-    });
+    }
   },
   
   /*
