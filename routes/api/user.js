@@ -360,6 +360,7 @@ module.exports = {
 
       var type = parseInt(req.body.type, 10);
       var now = Math.round(+new Date()/1000);
+      console.log('Type: ' + type);
 
       // Update the expirationDate field
       switch(type) {
@@ -380,6 +381,9 @@ module.exports = {
           user.expirationDate = now + 2592000 * 12;
           break;
       }
+
+      console.log('Now: ' + now);
+      console.log('Expiration Date: ' + user.expirationDate);
 
       // Save the user 
       user.save(function(err) {
