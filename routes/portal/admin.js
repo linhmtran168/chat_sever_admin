@@ -11,7 +11,7 @@ module.exports = {
   login: function(req, res) {
     var message = req.flash('error');
     res.render('admin/login', {
-      title: 'Login',
+      title: 'ログイン',
       message: message,
     });
   },
