@@ -112,7 +112,7 @@ userSchema.static('authenticate', function(username, password, callback) {
 
     // If no user return false
     if (!user) {
-      return callback({ type: 'no-user' }, false, { message: "No user with this username" });
+      return callback({ type: 'no-user' }, false, { message: "このユーザ名のユーザーのない" });
     }
 
     // Verify Password
@@ -124,7 +124,7 @@ userSchema.static('authenticate', function(username, password, callback) {
 
       // If password not corret return false
       if (!isCorrect) {
-        return callback({ type: 'password' }, false, { message: "Wrong password" });
+        return callback({ type: 'password' }, false, { message: "パスワードは正しくありません" });
       }
 
       // If user is banned return false

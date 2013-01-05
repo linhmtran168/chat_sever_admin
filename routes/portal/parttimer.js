@@ -22,13 +22,13 @@ Parttimer.prototype.indexParttimer = function(req, res) {
     if (err) {
       // return handleError(err);
       return res.render('parttimer/index', {
-        title: 'User',
+        title: 'ユーザー',
         slug: 'parttimer',
       });
     }
 
     res.render('parttimer/index', {
-      title: 'User',
+      title: 'ユーザー',
       slug: 'parttimer',
       users: users,
       message: req.flash('message')
@@ -121,7 +121,7 @@ Parttimer.prototype.changePassword = function(req, res) {
         return res.redirect(500, '/parttimer/' + user.id);
       }
 
-      req.flash('message', 'Successfully change passsword for this parttimer');
+      req.flash('message', 'パスワードの変更が成功しました');
       return res.redirect('/parttimer/' + user.id);
     });
   });
@@ -147,7 +147,7 @@ Parttimer.prototype.checkUsername = function(req, res) {
       return res.json({
         value: req.param('value'),
         valid: false,
-        message: 'This username was already taken'
+        message: 'このユーザー名が既に登録されました'
       });
     }
 
@@ -179,7 +179,7 @@ Parttimer.prototype.checkEmail = function(req, res) {
       return res.json({
         value: req.param('value'),
         valid: false,
-        message: 'There is another user with this email'
+        message: 'このメールアドレスが既に登録されました'
       });
     }
 
@@ -196,12 +196,12 @@ Parttimer.prototype.checkEmail = function(req, res) {
  */
 Parttimer.prototype.validateParttimer = function(req, res, next) {
     // Create rule for validate user instance
-    req.check('username', 'Invalid Username').notEmpty().is(/^[a-zA-Z0-9_]+$/);
-    req.check('username', 'Username must have 6 to 20 characters').notEmpty().is(/^[a-zA-Z0-9_]+$/).len(6);
-    req.check('email', 'Invalid Email').notEmpty().isEmail();
-    req.check('password', 'Password must not be empty').notEmpty();
-    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
-    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+    req.check('username', 'ユーザー名は正しくありません').notEmpty().is(/^[a-zA-Z0-9_]+$/);
+    req.check('username', 'ユーザー名は6文字以上、20文字以内でなければなりません').notEmpty().is(/^[a-zA-Z0-9_]+$/).len(6);
+    req.check('email', 'メールアドレスは正しくありません').notEmpty().isEmail();
+    req.check('password', 'パスワードは必須です').notEmpty();
+    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
   // Create the mapped errors array
   var errors = req.validationErrors(true);
@@ -220,9 +220,9 @@ Parttimer.prototype.validateParttimer = function(req, res, next) {
  */
 Parttimer.prototype.validatePassword = function(req, res, next) {
     // Create rule for validate user instance
-    req.check('password', 'Password must not be empty').notEmpty();
-    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
-    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+    req.check('password', 'パスワードは必須です').notEmpty();
+    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
   // Create the mapped errors array
   var errors = req.validationErrors(true);

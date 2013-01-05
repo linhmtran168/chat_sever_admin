@@ -4,9 +4,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href="/gift") Manage Gift
+        a(href="/gift") ギフト管理
       li.active
-        a(href="/gift/categories") Manage Categories
+        a(href="/gift/categories") ギフトカテゴリ管理
 
   if typeof(message) !== 'undefined' && message.length !== 0
     #message-box
@@ -17,64 +17,64 @@ block content
   #category-box.row.offset2
     if categories.length === 0
       #no-category.span10.offset2
-        p.lead.text-info There is no category right now. Please create one
-        a#create-cat.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') Create Category
+        p.lead.text-info 現在カテゴリがありません。新ギフトを作成前にカテゴリを作成してください
+        a#create-cat.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') カテゴリ作成
     else
       .row
         #cat-table.span9.offset3
           table.categories-table.table.table-bordered.table-hover
             tr
-              th Category Name
-              th Description
-              th(colspan='2') Operation
+              th カテゴリ名
+              th 説明
+              th(colspan='2') 操作
             for category in categories
               tr
                 td.category-name=category.name
                 td.category-description=category.description
                 td
-                  a#update-cat-but.btn.btn-info(data-toggle='modal', href='/category/update-view/#{ category.id }', data-target='#update-cat-modal') Update
+                  a#update-cat-but.btn.btn-info(data-toggle='modal', href='/category/update-view/#{ category.id }', data-target='#update-cat-modal') 更新
                 td
-                  a#delete-cat-but.btn.btn-danger(href='/category/delete/#{ category.id }') Delete
+                  a#delete-cat-but.btn.btn-danger(href='/category/delete/#{ category.id }') 削除
 
       .row
-        a#create-cat.offset6.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') Create Category
-        a#create-gift.btn.btn-primary(href='/gift/add') Add New Gift
+        a#create-cat.offset6.btn.btn-primary(role='button', data-toggle='modal', href='#create-cat-modal') カテゴリ作成
+        a#create-gift.btn.btn-primary(href='/gift/add') 新しいギフトの追加
 
   
   #create-cat-modal.span5.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='category-modal', aria-hidden='true')
     form(action='/category/add', method='post')
       .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') x
-        h3#category-modal Create New Category
+        h3#category-modal 新カテゴリ作成
 
       .modal-body
         input(type='hidden', name='_csrf', value=token)
         #new-cat-form
           div.control-group
-            label.control-label(for='name') Category Name:
+            label.control-label(for='name') カテゴリ名:
             div.controls
               input#name.span4(type='text', name='name', required, placeholder='Category Name', data-validation-ajax-ajax='/category/check-name')
               p.help-block
 
           div.control-group
-            label.control-label(for='description') Description:
+            label.control-label(for='description') 説明:
             div.controls
               textarea.span4#description(name='description', placeholder='Category Description')
               p.help-block
 
       .modal-footer
-        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
-        button.btn.btn-primary(type='submit') Save Category
+        button.btn(data-dismiss='modal', aria-hidden='true') キャンセル
+        button.btn.btn-primary(type='submit') カテゴリ保存
 
   #update-cat-modal.span5.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='category-modal', aria-hidden='true')
     form(action='/category/update', method='post')
       input(type='hidden', name='_csrf', value=token)
       .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') x
-        h3#update-modal Create New Category
+        h3#update-modal 新カテゴリ作成
 
       .modal-body
 
       .modal-footer
-        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
-        button.btn.btn-primary(type='submit') Save Category
+        button.btn(data-dismiss='modal', aria-hidden='true') キャンセル
+        button.btn.btn-primary(type='submit') カテゴリ保存

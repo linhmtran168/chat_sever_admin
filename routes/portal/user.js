@@ -20,13 +20,13 @@ module.exports = {
       if (err) {
         // return handleError(err);
         return res.render('user/index', {
-          title: 'User',
+          title: 'ユーザー',
           slug: 'user',
         });
       }
 
       res.render('user/index', {
-        title: 'User',
+        title: 'ユーザー',
         slug: 'user',
         users: users,
         message: req.flash('message')

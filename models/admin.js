@@ -44,7 +44,7 @@ adminSchema.static('authenticate', function(adminname, password, callback) {
 
     // If no user return false
     if (!admin) {
-      return callback(null, false, { message: "No admin with this username" });
+      return callback(null, false, { message: "このユーザ名の管理者のない" });
     }
 
     // Verify Password
@@ -56,7 +56,7 @@ adminSchema.static('authenticate', function(adminname, password, callback) {
 
       // If password not corrcet return false
       if (!isCorrect) {
-        return callback(null, false, { message: "Wrong password" });
+        return callback(null, false, { message: "パスワードは正しくありません" });
       }
 
       // Return the user

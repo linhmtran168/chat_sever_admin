@@ -565,7 +565,7 @@ module.exports = {
             status: 0,
             error: {
               type: 'user',
-              message: 'This user already in your favorite list'
+              message: 'このユーザーがすでにお気に入りに入っています'
             }
           });
         }
@@ -618,7 +618,7 @@ module.exports = {
             status: 0,
             error: {
               type: 'user',
-              message: 'The use is not in favorite list'
+              message: 'このユーザーがお気に入りに入っていません'
             }
           });
         }
@@ -849,12 +849,12 @@ module.exports = {
    */
   validateUser: function(req, res, next) {
     // Validate 
-    req.check('username', 'Invalid Username').notEmpty().is(/^[a-zA-Z0-9_]+$/);
-    req.check('username', 'Username must have 6 to 20 characters').len(6, 20);
-    req.check('email', 'Invalid Email').notEmpty().isEmail();
-    req.check('password', 'Password must not be empty').notEmpty();
-    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
-    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+    req.check('username', 'ユーザー名は正しくありません').notEmpty().is(/^[a-zA-Z0-9_]+$/);
+    req.check('username', 'ユーザー名は6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('email', 'メールアドレスは正しくありません').notEmpty().isEmail();
+    req.check('password', 'パスワードは必須です').notEmpty();
+    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
     // Create the mapped errors array
     var errors = req.validationErrors(true);
@@ -879,7 +879,7 @@ module.exports = {
         // If a user with that username exist
         if (user) {
           errors.username = {
-            msg: 'A user with this username already exist',
+            msg: 'このユーザー名が既に存在します',
             param: 'username',
             value: req.body.username
           };
@@ -902,7 +902,7 @@ module.exports = {
             // If a user with that email exist
             if (user) {
               errors.email = {
-                msg: 'A user with this email already exist',
+                msg: 'このメールアドレスが既に登録されました',
                 param: 'email',
                 value: req.body.email
               };
@@ -968,7 +968,7 @@ module.exports = {
         // If a user with that email exist
         if (user) {
           errors.email = {
-            msg: 'A user with this email already exist',
+            msg: 'このメールアドレスが既に登録されました',
             param: 'email',
             value: req.body.email
           };

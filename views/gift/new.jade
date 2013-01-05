@@ -4,9 +4,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href="/gift") Manage Gift
+        a(href="/gift") ギフト管理
       li.active
-        a(href="/gift/add") New Gift
+        a(href="/gift/add") 新しいギフトの追加
   if typeof(message) !== 'undefined' && message.length !== 0
     #message-box
     .row
@@ -17,52 +17,52 @@ block content
   .row
     if categories.length === 0
       #no-category.span10.offset4
-        p.lead.text-info There is no category right now. Please create one, before create a new gift
-        a#create-cat.btn.btn-primary(href='/gift/categories') Category Management
+        p.lead.text-info 現在カテゴリがありません。新ギフトを作成前にカテゴリを作成してください
+        a#create-cat.btn.btn-primary(href='/gift/categories') ギフトカテゴリ管理
     else
       .span7.offset6.new-gift-block
         form#new-gift.form(action='/gift/add', method='post',
           enctype='multipart/form-data')
           input(type='hidden', name='_csrf', value=token)
           div.offset1.gift-inputs
-            label.control-label(for='image') Gift Image:
+            label.control-label(for='image') ギフトの画像:
               .fileupload.fileupload-new(data-provides='fileupload')
                 .fileupload-new.thumbnail.align-image
                   img.span4(src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image')
                 .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
                 .image-buttons
                   span.btn.btn-file
-                    span.fileupload-new Select image
-                    span.fileupload-exists Change
+                    span.fileupload-new 画像選択
+                    span.fileupload-exists 変更
                     input(type='file', name='image')
 
-                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
+                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') 削除
               
             div.control-group
-              label.control-label(for='name') Gift Name:
+              label.control-label(for='name') ギフト名:
               div.controls
-                input#name.input-xlarge(type='text', name='name', placeholder='Gift name', required)
+                input#name.input-xlarge(type='text', name='name', placeholder='ギフト名', required)
                 p.help-block
 
             div.control-group
-              label.control-label(for='name') Category:
+              label.control-label(for='name') カテゴリ:
               div.controls
                 select#category.input-xlarge(name='category')
                   for category in categories
                     option(value='#{ category.id }')=category.name
                 p.help-block
             div.control-group
-              label.control-label(for='point') Point Cost:
+              label.control-label(for='point') ポイント値段:
               div.controls
-                input#cost.input-large(type='text', name='cost', placeholder='Point', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='Please enter a number', required)
+                input#cost.input-large(type='text', name='cost', placeholder='ポイント', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='番号を入力してください', required)
                 p.help-block
 
             div.control-group
-              label.control-label(for='description') Description:
+              label.control-label(for='description') 説明:
               div.controls
-                textarea.span4(name='description', placeholder='Description')
+                textarea.span4(name='description', placeholder='説明')
 
 
             div.control-group.register-submit
               div.controls
-                button.btn.btn-primary(type='submit') Save Gift
+                button.btn.btn-primary(type='submit') ギフト保存

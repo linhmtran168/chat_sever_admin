@@ -6,19 +6,19 @@ div.navbar.navbar-static-top
       if currentUser
         ul.nav
           if slug === 'user'
-            li.active: a(href='/user') User 
+            li.active: a(href='/user') ユーザー管理 
           else
-            li: a(href='/user') User 
+            li: a(href='/user') ユーザー管理 
             
           if slug === 'parttimer'
-            li.active: a(href='/parttimer') Parttimer 
+            li.active: a(href='/parttimer') アルバイト管理 
           else
-            li: a(href='/parttimer') Parttimer 
+            li: a(href='/parttimer') アルバイト管理 
 
           if slug === 'gift'
-            li.active: a(href='/gift') Gift
+            li.active: a(href='/gift') ギフト管理
           else
-            li: a(href='/gift') Gift
+            li: a(href='/gift') ギフト管理
 
         ul.nav.pull-right
           li.divider-vertical
@@ -35,8 +35,8 @@ div.navbar.navbar-static-top
                 li
                   a(href='/admin/account')
                     i.icon-th-large
-                    | &nbsp;Dashboard
+                    | &nbsp;ダッシュボード
                 li 
                   a(href='/logout')
                     i.icon-eject
-                    | &nbsp;Logout
+                    | &nbsp;ログアウト

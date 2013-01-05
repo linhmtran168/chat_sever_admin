@@ -211,7 +211,7 @@ module.exports = {
             status: 0,
             error: {
               type: 'gift',
-              message: 'You don\'t have enough point to purchase this gift'
+              message: 'ギフト購入のためのポイントが足りません'
             }
           });
         }
@@ -274,7 +274,7 @@ module.exports = {
               return res.json({
                 status: 1,
                 order: order,
-                message: 'Successfully order the gift'
+                message: '購入が成功した'
               });
             });
 

@@ -4,9 +4,9 @@ block content
   .tabbable.tab-bar
     ul.nav.nav-tabs
       li.active.offset3
-        a(href="#tab1", data-toggle="tab") Manage Part-timer
+        a(href="#tab1", data-toggle="tab") アルバイト管理
       li
-        a(href="#tab2", data-toggle="tab") Create New Part-timer
+        a(href="#tab2", data-toggle="tab") 新アルバイト作成
 
     .tab-content
       #tab1.tab-pane.active
@@ -31,12 +31,12 @@ block content
                     i.icon-search
             .row
               #search-options.span9.offset7
-                  button.btn(type='submit') Search Username
+                  button.btn(type='submit') ユーザー検索
                   select(name='statusOption')
-                    option(value='all') All users
-                    option(value='banned') Only banned users
-                    option(value='online') Only online users
-                    option(value='offline') Only offline users
+                    option(value='all') 全てのユーザー
+                    option(value='banned') 禁制されたユーザーのみ
+                    option(value='online') オンラインユーザーのみ
+                    option(value='offline') オフラインユーザーのみ
 
 
         #users-box.span12.offset3.row
@@ -52,7 +52,7 @@ block content
                       .caption
                         h5=user.username
                         p
-                          em Status:&nbsp; 
+                          em ステータス:&nbsp; 
                           if user.status === 'online'
                             span.label.label-success=user.status.toUpperCase()
                           else if user.status === 'offline'
@@ -65,33 +65,33 @@ block content
           .span7.offset6.register-block
             form#create-parttimer.form(action='/parttimer/create-parttimer', method='post',
               enctype='multipart/form-data')
-              legend.register-legend Create new part-timer
+              legend.register-legend 新アルバイト作成
               div.offset1.register-inputs
                 div.control-group
                   input(type='hidden', name='_csrf', value=token)
-                  label.control-label(for='username') Username:
+                  label.control-label(for='username') ユーザー名:
                   div.controls
                     input#username.input-xlarge(type='text', name='username', placeholder='Username', required, data-validation-regex-regex='[a-zA-Z0-9_]+', data-validation-regex-message='Username has invalid charaters', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6', data-validation-ajax-ajax='/parttimer/check-username')
                     p.help-block
 
                 div.control-group
-                  label.control-label(for='email') Email:
+                  label.control-label(for='email') メール:
                   div.controls
                     input#email.input-xlarge(type='email', name='email', required, data-validation-email-message='Email is invalid', data-validation-ajax-ajax='/parttimer/check-email', placeholder='Email')
                     p.help-block
 
                 div.control-group
-                  label.control-label(for='password') Password:
+                  label.control-label(for='password') パスワード:
                   div.controls
                     input#password(type='password', name='password', required, placeholder='Password', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6')
                     p.help-block
 
                 div.control-group
-                  label.control-label(for='passwordConfirm') Password Confirmation:
+                  label.control-label(for='passwordConfirm') パスワード確認:
                   div.controls
                     input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='Password and password confirmation must match', placeholder='Password Confirmation')
                     p.help-block
 
                 div.control-group.register-submit
                   div.controls
-                    button.btn.btn-large(type='submit') Create
+                    button.btn.btn-large(type='submit') 作成

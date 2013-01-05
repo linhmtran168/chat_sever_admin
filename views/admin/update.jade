@@ -4,18 +4,18 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.active.offset3
-        a(href='/admin/account') Admin Account
+        a(href='/admin/account') 管理者アカウント
 
 
   .row.offset2
     #left-nav-admin.span3
       ul.nav.nav-list.well
-        li.nav-header Admin Options
+        li.nav-header 管理者オプション
         li.active 
-          a(href='/admin/account') Change Password
+          a(href='/admin/account') パスワード変更
         li.divider
         li
-          a(href='/logout') Logout
+          a(href='/logout') ログアウト
     #change-pass.span6.offset2
       if message.length !== 0
         .row
@@ -26,24 +26,24 @@ block content
       form.form(action='/admin/update-password', method='post')
         legend Change Password
         div.control-group
-          label.control-label(for='oldPassword') Old Password:
+          label.control-label(for='oldPassword') 旧パスワード:
           div.controls
             input#username.input-xlarge(type='password', name='oldPassword',
-            placeholder='Old Password')
+            placeholder='旧パスワード')
             
         div.control-group
-          label.control-label(for='password') New Password:
+          label.control-label(for='password') 新パスワード:
           div.controls
             input#password.input-xlarge(type='password', name='password',
-            placeholder='Password')
+            placeholder='新パスワード')
 
         div.control-group
-          label.control-label(for='password') New Password Confirmation:
+          label.control-label(for='password') 新パスワード確認:
           div.controls
             input#password.input-xlarge(type='password', name='passwordConfirm',
-              placeholder='Password Confirmation')
+              placeholder='新パスワード確認')
 
         div.contrl-group
           div.controls
-            button.btn.btn-primary(type='submit') Change Password
+            button.btn.btn-primary(type='submit') パスワード変更
             input(type='hidden', name='_csrf', value=token)

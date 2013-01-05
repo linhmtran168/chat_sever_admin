@@ -4,24 +4,24 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href='/gift') Manage Gift
+        a(href='/gift') ギフト管理
       li.active
-        a(href='/gift/orders') Manage Orders
+        a(href='/gift/orders') ギフト注文の管理
 
   #orders.row.offset2
     input#csrf(type='hidden', value=token)
     if orders.length === 0
       #no-order.span10.offset2
-        p.lead.text-info There is no order at this time
+        p.lead.text-info 現在、注文がありません
     else
       #order.offset1.span12
         table.order-table.table.table-bordered.table-hover.table-striped
           tr
-            th Code
-            th Order Time
-            th User
-            th Gift
-            th Contact Info
+            th コード
+            th 注文時間
+            th ユーザー
+            th ギフト
+            th 連絡先
             th Status
           for order in orders
             tr
@@ -34,13 +34,13 @@ block content
               td.contact-td
                 ul
                   li
-                    strong Address:
+                    strong 住所:
                     |  #{ order.address }
                   li
-                    strong Postal Code:
+                    strong 郵便番号:
                     |  #{ order.postalCode } 
                   li
-                    strong Phone Number:
+                    strong 電話番号:
                     |  #{ order.phoneNumber }
               td
                 a.order-status(href='#', data-type='select', data-pk=order.id, data-name='status', data-value='#{ order.status }', data-original-title='Select order status', data-url='/gift/order/#{ order.id }')
@@ -50,24 +50,24 @@ block content
             ul.pager
               li.previous 
                 if pageNum === 1
-                  a(href='/gift/orders?page=1').btn.disabled &larr; First
+                  a(href='/gift/orders?page=1').btn.disabled &larr; 最初
                 else
-                  a(href='/gift/orders?page=1') &larr; First
+                  a(href='/gift/orders?page=1') &larr; 最初
               li 
                 if pageNum === 1
-                  a(href='/gift/orders?page=1').btn.disabled Previous
+                  a(href='/gift/orders?page=1').btn.disabled 前
                 else
-                  a(href='/gift/orders?page=#{ pageNum - 1 }') Previous
+                  a(href='/gift/orders?page=#{ pageNum - 1 }') 前
               li 
                 if pageNum === maxPage
-                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled Next
+                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled 次
                 else
-                  a(href='/gift/orders?page=#{ pageNum + 1 }') Next
+                  a(href='/gift/orders?page=#{ pageNum + 1 }') 次
               li.next 
                 if pageNum === maxPage
-                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled Last &rarr;
+                  a(href='/gift/orders?page=#{ maxPage }').btn.disabled 最後 &rarr;
                 else
-                  a(href='/gift/orders?page=#{ maxPage }') Last &rarr;
+                  a(href='/gift/orders?page=#{ maxPage }') 最後 &rarr;
 
            
   #gift-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='gift-modal-inner', aria-hidden='true')
@@ -79,4 +79,4 @@ block content
     .modal-body
 
     .modal-footer
-      a#edit-gift.btn.btn-info(href='#') Edit Gift
+      a#edit-gift.btn.btn-info(href='#') ギフト編集

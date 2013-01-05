@@ -9,9 +9,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href="/parttimer") Manage Parttimer
+        a(href="/parttimer") アルバイト管理
       li.active
-        a(href="#") #{ user.username }'s Profile
+        a(href="#") #{ user.username }の情報
 
   if typeof(message) !== 'undefined' && message.length !== 0
     #message-box
@@ -28,45 +28,45 @@ block content
         h4=user.username
         ul
           li
-            strong Email: 
+            strong メール: 
             |   #{ user.email }
 
           if user.gender 
             li
-              strong Gender:
+              strong 性別:
               |  #{ user.gender }
 
           if user.about
             li
-              strong About:
+              strong 詳細:
               |  #{ user.about }
 
           if user.birthday
             li
-              strong Birthday:
+              strong 生年月日:
               |  #{ user.birthday }
 
           if user.screenName
             li
-              strong Screen Name:
+              strong スクリーン名:
               |  #{ user.screenName }
 
           if user.occupation
             li
-              strong Occupation:
+              strong 職業:
               |  #{ user.occupation }
 
           if user.bloodType
             li
-              strong Blood Type:
+              strong 血液型:
               |  #{ user.bloodType }
 
           if user.lastLocation.name
             li
-              strong Last Location: 
+              strong 最後の場所: 
               |  #{ user.lastLocation.name }
           li
-            strong Status:&nbsp; 
+            strong ステータス:&nbsp; 
               if user.status === 'online'
                 span.label.label-success=user.status.toUpperCase()
               else if user.status === 'offline'
@@ -76,12 +76,12 @@ block content
 
         #profile-options
           if user.status === 'banned'
-            a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
+            a.btn.btn-info.span1(href='/user/enable/#{ user.id }') 有効にする
           else
-            a.btn.span1(href='/user/ban/#{ user.id }') Ban
-          a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+            a.btn.span1(href='/user/ban/#{ user.id }') 禁制
+          a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') 削除
 
-        a#reset-password.btn.span2.btn-warning(href='#reset-modal', data-toggle='modal') Reset Password
+        a#reset-password.btn.span2.btn-warning(href='#reset-modal', data-toggle='modal') パスワードのリセット
 
     #map-box.span6
       input#latitude(type='hidden', value='#{ user.lastLocation.coords[1] }')
@@ -93,26 +93,26 @@ block content
     form#create-parttimer.form(action='/parttimer/#{ user.id }/change-password', method='post')
       .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') x
-        h3#reset-password-label Reset Password
+        h3#reset-password-label パスワードのリセット
       .modal-body
         .offset2
           div.control-group
             input(type='hidden', name='_csrf', value=token)
 
           div.control-group
-            label.control-label(for='password') New Password:
+            label.control-label(for='password') 新パスワード:
             div.controls
-              input#password(type='password', name='password', required, placeholder='Password', maxlength='20', data-validation-maxlength-message='Max length is 20', minlength='6', data-validation-minlength-message='Min length is 6')
+              input#password(type='password', name='password', required, placeholder='新パスワード', maxlength='20', data-validation-maxlength-message='パスワードは20文字以内でなければなりません', minlength='6', data-validation-minlength-message='パスワードは6文字以上でなければなりません')
               p.help-block
 
           div.control-group
-            label.control-label(for='passwordConfirm') Password Confirmation:
+            label.control-label(for='passwordConfirm') 新パスワード確認:
             div.controls
-              input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='Password and password confirmation must match', placeholder='Password Confirmation')
+              input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='パスワードとパスワードの確認は一致しなけらばなりません', placeholder='新パスワード確認')
               p.help-block
       .modal-footer
-        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
-        button.btn(type='submit') Change Password
+        button.btn(data-dismiss='modal', aria-hidden='true') キャンセル
+        button.btn(type='submit') パスワード変更
 
 
 prepend scripts

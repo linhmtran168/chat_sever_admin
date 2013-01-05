@@ -4,9 +4,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.active.offset3
-        a(href="/gift") Manage Gift
+        a(href="/gift") ギフト管理
       li
-        a(href="/gift/orders") Manage Orders
+        a(href="/gift/orders") ギフト注文の管理
 
   if typeof(message) !== 'undefined' && message.length !== 0
     #message-box
@@ -19,13 +19,13 @@ block content
 
     #left-nav.span3
       ul.nav.nav-list
-        li.nav-header Categories
+        li.nav-header カテゴリ
         if typeof(currentCategory) === 'undefined'
           li.active
-            a(href='/gift') All
+            a(href='/gift') 全てのギフト
         else
           li
-            a(href='/gift') All
+            a(href='/gift') 全てのギフト
         for category in categories
           if category.id === currentCategory
             li.active
@@ -36,14 +36,14 @@ block content
 
         li.divider
         li
-          a(href='/gift/categories') Manage categories
+          a(href='/gift/categories') ギフトカテゴリ管理
         li
-          a(href='/gift/add') Add new gift
+          a(href='/gift/add') 新しいギフトの追加
 
     #gifts.span10
       if gifts.length === 0
         #notify-box.row.offset2
-          p.lead.text-info There is no gift right now
+          p.lead.text-info 現在、ギフトがありません
       else
         ul#gifts-grid.thumbnails
           for gift in gifts
@@ -62,7 +62,7 @@ block content
                   p 
                     em #{ gift.cost } pts
                   p.options
-                    a.gift-more.text-info(href='#', data-gift-id='#{ gift.id }') More
+                    a.gift-more.text-info(href='#', data-gift-id='#{ gift.id }') 他
 
       if isPager
         #pager
@@ -70,47 +70,47 @@ block content
             li.previous
               if pageNum === 1
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled &larr; First
+                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled &larr; 最初
                 else
-                  a(href='/gift?page=1').btn.disabled &larr; First
+                  a(href='/gift?page=1').btn.disabled &larr; 最初
               else 
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=1&category=#{ currentCategory }') &larr; First
+                  a(href='/gift?page=1&category=#{ currentCategory }') &larr; 最初
                 else 
-                  a(href='/gift?page=1') &larr; First
+                  a(href='/gift?page=1') &larr; 最初
             li
               if pageNum === 1
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled Previous
+                  a(href='/gift?page=1&category=#{ currentCategory }').btn.disabled 前
                 else
-                  a(href='/gift?page=1').btn.disabled Previous
+                  a(href='/gift?page=1').btn.disabled 前
               else 
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=#{ pageNum - 1 }&category=#{ currentCategory }') Previous
+                  a(href='/gift?page=#{ pageNum - 1 }&category=#{ currentCategory }') 前
                 else
-                  a(href='/gift?page=#{ pageNum - 1 }') Previous
+                  a(href='/gift?page=#{ pageNum - 1 }') 前
             li
               if pageNum === maxPage
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }').btn.disabled Next
+                  a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }').btn.disabled 次
                 else
-                  a(href='/gift?page=#{ maxPage }').btn.disabled Next
+                  a(href='/gift?page=#{ maxPage }').btn.disabled 次
               else 
                 if typeof(currentCategory) !== 'undefined'
-                  a(href='/gift?page=#{ pageNum + 1 }&category=#{ currentCategory }') Next
+                  a(href='/gift?page=#{ pageNum + 1 }&category=#{ currentCategory }') 次
                 else
-                  a(href='/gift?page=#{ pageNum + 1 }') Next
+                  a(href='/gift?page=#{ pageNum + 1 }') 次
             li.next
               if pageNum === maxPage
                 if typeof(currentCategory) !== 'undefined'
                   a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }').btn.disabled Last &rarr;
                 else
-                  a(href='/gift?page=#{ maxPage }').btn.disabled Last &rarr;
+                  a(href='/gift?page=#{ maxPage }').btn.disabled 最後 &rarr;
               else 
                 if typeof(currentCategory) !== 'undefined'
                   a(href='/gift?page=#{ maxPage }&category=#{ currentCategory }') Last &rarr;
                 else
-                  a(href='/gift?page=#{ maxPage }') Last &rarr;
+                  a(href='/gift?page=#{ maxPage }') 最後 &rarr;
 
     #gift-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='gift-modal-inner', aria-hidden='true')
 
@@ -121,5 +121,5 @@ block content
       .modal-body
 
       .modal-footer
-        a#edit-gift.btn.btn-info(href='#') Update
-        a#delete-gift.btn.btn-danger(href='#') Delete
+        a#edit-gift.btn.btn-info(href='#') 更新
+        a#delete-gift.btn.btn-danger(href='#') 削除

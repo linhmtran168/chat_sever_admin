@@ -26,7 +26,7 @@ module.exports = {
 
       return res.render('category/index', {
         slug: 'gift',
-        title: 'Category Management',
+        title: 'ギフトカテゴリ管理',
         categories: categories,
         message: message
       });
@@ -39,7 +39,7 @@ module.exports = {
   add: function(req, res) {
     // Check for category name
     if (_.isUndefined(req.body.name)) {
-      req.flash('message', 'Category name is missing');
+      req.flash('message', 'カテゴリ名が見つかりません');
       return res.redirect('/gift/categories');
     }
 
@@ -64,7 +64,7 @@ module.exports = {
       }
 
       // Re-render index page
-      req.flash('message', 'Successfully saving the category');
+      req.flash('message', 'カテゴリの保存は成功しました');
       return res.redirect('/gift/categories');
     });
   },
@@ -85,7 +85,7 @@ module.exports = {
       }
 
       if (!category) {
-        req.flash('message', 'There is no category with this id');
+        req.flash('message', 'このIDのカテゴリが存在しません');
         return res.redirect('/gift/categories');
       }
 
@@ -105,7 +105,7 @@ module.exports = {
 
     // Check for category name
     if (_.isUndefined(req.body.name)) {
-      req.flash('message', 'Category name is missing');
+      req.flash('message', 'カテゴリ名が見つかりません');
       return res.redirect('/gift/categories');
     }
 
@@ -117,7 +117,7 @@ module.exports = {
       }
 
       if (!category) {
-        req.flash('message', 'There is no category with this id');
+        req.flash('message', 'このIDのカテゴリが存在しません');
         return res.redirect('/gift/categories');
       }
 
@@ -136,7 +136,7 @@ module.exports = {
         }
 
         // Success
-        req.flash('message', 'Successfully updated the category');
+        req.flash('message', 'カテゴリの保存は成功しました');
         return res.redirect('/gift/categories');
       });
     });
@@ -158,7 +158,7 @@ module.exports = {
       }
 
       // Create the success messge
-      req.flash('message', 'Successfully deleting the category');
+      req.flash('message', 'カテゴリの削除は成功しました');
       return res.redirect('/gift/categories');
     });
   },
@@ -182,7 +182,7 @@ module.exports = {
         return res.json({
           value: req.param('value'),
           valid: false,
-          message: 'There is already a category with this name'
+          message: '同じ名前のカテゴリが既に存在します'
         });
       }
 

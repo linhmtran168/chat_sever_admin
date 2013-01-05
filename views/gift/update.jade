@@ -4,9 +4,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href="/gift") Manage Gift
+        a(href="/gift") ギフト管理
       li.active
-        a(href="/gift/add") Update Gift
+        a(href="/gift/add") ギフト編集
   if typeof(message) !== 'undefined' && message.length !== 0
     #message-box
     .row
@@ -20,7 +20,7 @@ block content
         enctype='multipart/form-data')
         input(type='hidden', name='_csrf', value=token)
         div.offset1.gift-inputs
-          label.control-label(for='image') Gift Image:
+          label.control-label(for='image') ギフトの画像:
             .fileupload.fileupload-new(data-provides='fileupload')
               .fileupload-new.thumbnail.align-image
                 if env === 'local'
@@ -30,20 +30,20 @@ block content
               .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
               .image-buttons
                 span.btn.btn-file
-                  span.fileupload-new Select image
-                  span.fileupload-exists Change
+                  span.fileupload-new 画像選択
+                  span.fileupload-exists 変更
                   input(type='file', name='image')
 
-                a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
+                a.btn.fileupload-exists(href='#', data-dismiss='fileupload') 削除
             
           div.control-group
-            label.control-label(for='name') Gift Name:
+            label.control-label(for='name') ギフト名:
             div.controls
-              input#name.input-xlarge(type='text', name='name', placeholder='Gift name', required, value='#{ gift.name}')
+              input#name.input-xlarge(type='text', name='name', placeholder='ギフト名', required, value='#{ gift.name}')
               p.help-block
 
           div.control-group
-            label.control-label(for='name') Category:
+            label.control-label(for='name') カテゴリ:
             div.controls
               select#category.input-xlarge(name='category')
                 for category in categories
@@ -53,17 +53,17 @@ block content
                     option(value='#{ category.id }')=category.name
               p.help-block
           div.control-group
-            label.control-label(for='point') Point Cost:
+            label.control-label(for='point') ポイント値段:
             div.controls
-              input#cost.input-large(type='text', name='cost', placeholder='Point', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='Please enter a number', required, value='#{ gift.cost }')
+              input#cost.input-large(type='text', name='cost', placeholder='ポイント', data-validation-regex-regex=' *[0-9]+ *', data-validation-regex-message='番号を入力してください', required, value='#{ gift.cost }')
               p.help-block
 
           div.control-group
-            label.control-label(for='description') Description:
+            label.control-label(for='description') 説明:
             div.controls
-              textarea.span4(name='description', placeholder='Description')=gift.description
+              textarea.span4(name='description', placeholder='説明')=gift.description
 
 
           div.control-group.register-submit
             div.controls
-              button.btn.btn-primary(type='submit') Save Gift
+              button.btn.btn-primary(type='submit') ギフト保存

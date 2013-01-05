@@ -9,9 +9,9 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.offset3
-        a(href="/user") Back to Search
+        a(href="/user") 検索に戻る
       li.active
-        a(href="#") #{ user.username }'s Profile
+        a(href="#") #{ user.username }の情報
 
   #profile-box.span12.offset2.row
     #details.span4.thumbnail
@@ -22,42 +22,42 @@ block content
         p
           ul
             li
-              strong Email: 
+              strong メール: 
               |   #{ user.email }
 
             if user.gender 
               li
-                strong Gender:
+                strong 性別:
                 |  #{ user.gender }
 
             if user.about
               li
-                strong About:
+                strong 詳細:
                 |  #{ user.about }
 
             if user.birthday
               li
-                strong Birthday:
+                strong 生年月日:
                 |  #{ user.birthday }
 
             if user.screenName
               li
-                strong Screen Name:
+                strong スクリーン名:
                 |  #{ user.screenName }
 
             if user.occupation
               li
-                strong Occupation:
+                strong 職業:
                 |  #{ user.occupation }
 
             if user.bloodType
               li
-                strong Blood Type:
+                strong 血液型:
                 |  #{ user.bloodType }
 
             if user.lastLocation.name
               li
-                strong Last Location: 
+                strong 最後の場所: 
                 |  #{ user.lastLocation.name }
             li
               strong Status:&nbsp; 
@@ -70,10 +70,10 @@ block content
         p
           #profile-options
             if user.status === 'banned'
-              a.btn.btn-info.span1(href='/user/enable/#{ user.id }') Enable
+              a.btn.btn-info.span1(href='/user/enable/#{ user.id }') 有効にする
             else
-              a.btn.span1(href='/user/ban/#{ user.id }') Ban
-            a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') Delete
+              a.btn.span1(href='/user/ban/#{ user.id }') 禁制
+            a.btn.span1.btn-danger(href='/user/delete/#{ user.id }') 削除
 
     #map-box.span6
       input#latitude(type='hidden', value='#{ user.lastLocation.coords[1] }')

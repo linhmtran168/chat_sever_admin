@@ -25,7 +25,7 @@ module.exports = {
       var message = req.flash('message');
 
       return res.render('admin/update', {
-        title: 'Admin Account',
+        title: '管理者アカウント',
         message: message
       });
     } 
@@ -52,7 +52,7 @@ module.exports = {
           return res.redirect('/');
         }
 
-        req.flash('message', 'Successfully changed password for admin');
+        req.flash('message', 'パスワードの変更が成功しました');
         return res.redirect('/admin/account');
       });
     });
@@ -69,9 +69,9 @@ module.exports = {
 
   checkUpdatePassword: function(req, res, next) {
     // Check for password
-    req.check('oldPassword', 'Password must not be empty').notEmpty();
-    req.check('password', 'Password must have 6 to 20 characters').len(6, 20);
-    req.check('passwordConfirm', 'Password and password confirmation must match').notEmpty().equals(req.body.password);
+    req.check('oldPassword', 'パスワードは必須です').notEmpty();
+    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
     // Create the mapped errors array
     var errors = req.validationErrors(true);
@@ -88,7 +88,7 @@ module.exports = {
     
     // Check for the old password
     if (!bcrypt.compareSync(req.body.oldPassword, req.user.hash)) {
-      req.flash('message', 'The old password is wrong');
+      req.flash('message', '旧パスワードは正しくありません');
       return res.redirect('/admin/account');
     }
 

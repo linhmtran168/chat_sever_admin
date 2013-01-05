@@ -25,7 +25,7 @@ module.exports = {
     var currentCategory;
     // Get the pageNum in the query
     if (req.query.page) {
-      req.check('page', 'Cost should be a number').notEmpty().isInt();
+      req.check('page', 'Page should be a number').notEmpty().isInt();
       // Create the mapped errors array
       var errors = req.validationErrors(true);
 
@@ -119,7 +119,7 @@ module.exports = {
       }
 
       if (!gift) {
-        req.flash('message', 'There is no gift with this id');
+        req.flash('message', 'このIDのギフトが存在しません');
         return res.redirect('/gift');
       }
 
@@ -173,7 +173,7 @@ module.exports = {
       var errors = req.validationErrors(true);
 
       if (errors && errors.length > 0) {
-        req.flash('message', 'Save gift failed. Check your name and cost');
+        req.flash('message', 'ギフト保存が失敗しました。ギフト名や価格を確認してください');
         return res.redirect('/gift/add');
       }
 
@@ -204,7 +204,7 @@ module.exports = {
 
           // If success
           console.log(gift);
-          req.flash('message', 'Sucessfully save the gift');
+          req.flash('message', 'ギフトの保存は成功しました');
           return res.redirect('/gift');
         });
       } else {
@@ -214,12 +214,12 @@ module.exports = {
           if (err) {
             if (newPhotoName === false) {
               if (err.type === 'extension') {
-                req.flash('message', 'Wrong type of extension');
+                req.flash('message', 'ファイルの拡張子が間違いました');
                 return res.redirect('/gift/add');
               } 
             }
 
-            req.flash('message', 'There is problem uploading the image');
+            req.flash('message', '画像アップロード中問題が発生しました');
             // Redirect to gift add page
             return res.redirect(500, '/gift/add');
           }
@@ -303,7 +303,7 @@ module.exports = {
         var errors = req.validationErrors(true);
 
         if (errors && errors.length > 0) {
-          req.flash('message', 'Save gift failed. Check your name and cost');
+          req.flash('message', 'ギフト保存が失敗しました。ギフト名や価格を確認してください');
           return res.redirect('/gift/add');
         }
         
@@ -329,7 +329,7 @@ module.exports = {
 
             // If success
             console.log(gift);
-            req.flash('message', 'Sucessfully save the gift');
+            req.flash('message', 'ギフトの保存は成功しました');
             return res.redirect('/gift');
           });
         } else {
@@ -339,12 +339,12 @@ module.exports = {
             if (err) {
               if (newPhotoName === false) {
                 if (err.type === 'extension') {
-                  req.flash('message', 'Wrong type of extension');
+                  req.flash('message', 'ファイルの拡張子が間違いました');
                   return res.redirect('/gift/edit/' + gift.id);
                 } 
               }
 
-              req.flash('message', 'There is problem uploading the image');
+              req.flash('message', '画像アップロード中問題が発生しました');
               // Redirect to gift add page
               return res.redirect(500, '/gift/add/' + gift.id);
             }
@@ -362,7 +362,7 @@ module.exports = {
 
               // If success
               console.log(gift);
-              req.flash('message', 'Sucessfully save the gift');
+              req.flash('message', 'ギフトの保存は成功しました');
               return res.redirect('/gift');
             });
           });
@@ -391,7 +391,7 @@ module.exports = {
       helpers.deletePhoto(gift.image);
 
       // Create the success messge
-      req.flash('message', 'Successfully deleting the category');
+      req.flash('message', 'ギフト削除が成功しました');
       return res.redirect('/gift');
     });
   },
@@ -406,7 +406,7 @@ module.exports = {
 
     // Get the pageNum in the query
     if (req.query.page) {
-      req.check('page', 'Cost should be a number').notEmpty().isInt();
+      req.check('page', 'Page should be a number').notEmpty().isInt();
       // Create the mapped errors array
       var errors = req.validationErrors(true);
 
