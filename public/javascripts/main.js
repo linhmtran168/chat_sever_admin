@@ -131,9 +131,9 @@ $(function() {
    */
   $('.order-status').editable({
     source: [
-      { value: 'untouched', text: 'Waiting Confirmation' },
-      { value: 'contacted', text: 'Confirmed' },
-      { value: 'done', text: 'Processed' }
+      { value: 'untouched', text: '確認待ち中' },
+      { value: 'contacted', text: '確認済み' },
+      { value: 'done', text: '必要な処理が行われた' }
     ],
     params: {
       '_csrf': $('#csrf').val(),
