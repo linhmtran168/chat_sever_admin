@@ -102,13 +102,13 @@ block content
           div.control-group
             label.control-label(for='password') 新パスワード:
             div.controls
-              input#password(type='password', name='password', required, placeholder='新パスワード', maxlength='20', data-validation-maxlength-message='パスワードは20文字以内でなければなりません', minlength='6', data-validation-minlength-message='パスワードは6文字以上でなければなりません')
+              input#password(type='password', name='password', required, data-validation-required-message='新パスワードは必須です', placeholder='新パスワード', maxlength='20', data-validation-maxlength-message='パスワードは20文字以内でなければなりません', minlength='6', data-validation-minlength-message='パスワードは6文字以上でなければなりません')
               p.help-block
 
           div.control-group
             label.control-label(for='passwordConfirm') 新パスワード確認:
             div.controls
-              input#password-confirm(type='password', name='passwordConfirm', required, data-validation-match-match='password', data-validation-match-message='パスワードとパスワードの確認は一致しなけらばなりません', placeholder='新パスワード確認')
+              input#password-confirm(type='password', name='passwordConfirm', required, data-validation-required-message='新パスワード確認は必須です', data-validation-match-match='password', data-validation-match-message='パスワードとパスワードの確認は一致しなけらばなりません', placeholder='新パスワード確認')
               p.help-block
       .modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') キャンセル
