@@ -93,7 +93,7 @@ Parttimer.prototype.createParttimer = function(req, res) {
       res.redirect(500, '/parttimer');
     } else {
       console.log('Save parttimer successfully');
-      req.flash('message', 'Successfully create new parttimer! If you want to change parttimer detail, visit parttimer portal');
+      req.flash('message', '新しいパートタイマーの作成が成功しました');
       res.redirect('/parttimer');
     }
   });
