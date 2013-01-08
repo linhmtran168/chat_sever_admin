@@ -18,7 +18,7 @@ module.exports = function(app) {
   app.get('/api/chat/history/:partnerId', [helpers.checkForAccessToken, chatCtrl.checkNumMessage], chatCtrl.getChatHistory);
 
   // Route for deleting a user's conversation
-  app.delete('/api/chat/conversation/:partnerId', helpers.checkForAcessToken, chatCtrl.deleteConversation);
+  app.delete('/api/chat/conversation/:partnerId', helpers.checkForAccessToken, chatCtrl.deleteConversation);
 
   /*
    * ========== Route for gift
