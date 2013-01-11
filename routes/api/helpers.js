@@ -64,7 +64,7 @@ exports.checkForAccessToken = function(req, res, next) {
         status: 0,
         error: {
           type: 'access',
-          message: 'You must provide a correct accessToken'
+          message: '他のディバイスに登録しました'
         }
       });
     } 
