@@ -55,6 +55,20 @@ $(function() {
   });
 
   /*
+   * Loading more page for user
+   */
+  if ($('#user-form').length !== 0) {
+    $(window).scroll(function() {
+      if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+        // Call the API to get more user 
+        if (!OG.connect.isRequesting) {
+          OG.connect.getMoreUsers(parseInt($('#current-page').val(), 10));
+        }
+      }
+    });
+  }
+
+  /*
    * Search for parttimer part
    */
   $('#parttimer-form').submit(function(e) {
@@ -64,6 +78,21 @@ $(function() {
 
     return false;
   });
+
+  /*
+   * Loading more page for parttimer
+   */
+  if ($('#parttimer-form').length !== 0) {
+    $(window).scroll(function() {
+      if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+        // Call the API to get more user 
+        console.log('abc');
+        if (!OG.connect.isRequesting) {
+          OG.connect.getMoreParttimers(parseInt($('#current-page').val(), 10));
+        }
+      }
+    });
+  }
 
   /*
    * Create pattimer form validation

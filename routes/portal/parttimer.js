@@ -18,7 +18,7 @@ Parttimer.prototype = userCtrl;
  */
 Parttimer.prototype.indexParttimer = function(req, res) {
   // Find all online users
-  User.find({ type: 'fake' }, null, { sort: 'username'}, function(err, users) {
+  User.find({ type: 'fake' }, null, { sort: 'username', limit: 60 }, function(err, users) {
     if (err) {
       // return handleError(err);
       return res.render('parttimer/index', {
@@ -31,6 +31,7 @@ Parttimer.prototype.indexParttimer = function(req, res) {
       title: 'ユーザー',
       slug: 'parttimer',
       users: users,
+      page: 1, 
       message: req.flash('message')
     });
   });
@@ -51,6 +52,18 @@ Parttimer.prototype.searchParttimer = function(req, res) {
   var usernameRegex = new RegExp(searchKey, 'i');
   // console.log(usernameRegex);
 
+  // If there is a page number in the query calculate the skip Item
+  var itemsPerPage = 60;
+  var skipItems = 0;
+
+  if (req.query.page) {
+    var page = parseInt(req.query.page, 10);
+    // If valid page variable, increade the skipItems
+    if (_.isNumber(page) && page > 0 ) {
+      skipItems += itemsPerPage * (page - 1);
+    }
+  }
+
   // Create the query based on status option
   if (statusOption === 'all') {
     query = User.find({ 'username': usernameRegex, type: 'fake' });
@@ -58,7 +71,7 @@ Parttimer.prototype.searchParttimer = function(req, res) {
     query = User.find({ 'username': usernameRegex, 'status': statusOption, type: 'fake' });
   }
 
-  query.select('id username profilePhoto email status lastLocation').exec(function(err, users) {
+  query.skip(skipItems).limit(itemsPerPage).select('id username profilePhoto email status lastLocation').sort({ username: 1 }).exec(function(err, users) {
 
     if (err) {
       // return handleError(err);

@@ -16,7 +16,7 @@ module.exports = {
    */
   index: function(req, res) {
     // Find all online users
-    User.find({ type: 'real' }, null, { sort: 'username'}, function(err, users) {
+    User.find({ type: 'real' }, null, { sort: 'username', limit: 60 }, function(err, users) {
       if (err) {
         // return handleError(err);
         return res.render('user/index', {
@@ -29,6 +29,7 @@ module.exports = {
         title: 'ユーザー',
         slug: 'user',
         users: users,
+        page: 1,
         message: req.flash('message')
       });
     });
@@ -95,6 +96,18 @@ module.exports = {
     var usernameRegex = new RegExp(searchKey, 'i');
     // console.log(usernameRegex);
 
+    var itemsPerPage = 60;
+    var skipItems = 0;
+
+    // If there is a page number in the query calculate the skip Item
+    if (req.query.page) {
+      var page = parseInt(req.query.page, 10);
+      // If valid page variable, increade the skipItems
+      if (_.isNumber(page) && page > 0 ) {
+        skipItems += itemsPerPage * (page - 1);
+      }
+    }
+
     // Create the query based on status option
     if (statusOption === 'all') {
       query = User.find({ 'username': usernameRegex, type: 'real' });
@@ -102,7 +115,7 @@ module.exports = {
       query = User.find({ 'username': usernameRegex, 'status': statusOption, type: 'real' });
     }
 
-    query.select('id username profilePhoto email status lastLocation').exec(function(err, users) {
+    query.skip(skipItems).limit(itemsPerPage).select('id username profilePhoto email status lastLocation').sort({ username: 1 }).exec(function(err, users) {
 
       if (err) {
         // return handleError(err);
