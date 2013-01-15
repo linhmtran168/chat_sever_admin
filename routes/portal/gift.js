@@ -92,7 +92,7 @@ module.exports = {
           console.log(categories);
           return res.render('gift/index', {
             slug: 'gift',
-            title: 'Gift Store',
+            title: 'ギフト管理',
             categories: categories,
             currentCategory: currentCategory,
             gifts: gifts,
