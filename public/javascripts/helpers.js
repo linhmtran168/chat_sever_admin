@@ -318,7 +318,7 @@
      * Function to get more parttimers
      */
     getMoreParttimers: function(page) {
-      // Creat the data object to send to ther server
+      // Creat the data object to send to the server
       var data = {
         searchKey: $('#search-username').val(),
         statusOption: $('select[name=statusOption]').val(),
