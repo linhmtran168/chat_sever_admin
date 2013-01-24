@@ -183,7 +183,7 @@ module.exports = {
       if (user.type === 'fake') {
         // If there is a user render the profile page for partimer 
         return res.render('parttimer/profile', {
-          title: 'Part-timer Profile',
+          title: 'アルバイト情報',
           slug: 'parttimer',
           user: user,
           message: req.flash('message')
@@ -192,7 +192,7 @@ module.exports = {
       
       // Render the profile page for user
       return res.render('user/profile', {
-        title: 'User Profile',
+        title: 'ユーザー情報',
         slug: 'user',
         user: user
       });
