@@ -286,7 +286,7 @@ module.exports = {
           return res.render('gift/update', {
             slug: 'gift',
             gift: gift,
-            title: 'Update Gift',
+            title: 'ギフト編集',
             env: env,
             message: message,
             categories: categories
