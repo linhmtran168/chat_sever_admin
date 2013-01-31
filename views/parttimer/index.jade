@@ -74,7 +74,7 @@ block content
                   input(type='hidden', name='_csrf', value=token)
                   label.control-label(for='username') ユーザー名:
                   div.controls
-                    input#username.input-xlarge(type='text', name='username', placeholder='ユーザー名', required, data-validation-required-message='ユーザー名は必須です', data-validation-regex-regex='[a-zA-Z0-9_]+', data-validation-regex-message='ユーザー名のキャラクターは正しくありません', maxlength='20', data-validation-maxlength-message='ユーザー名は6文字以上、20文字以内でなければなりません', minlength='6', data-validation-minlength-message='ユーザー名は6文字以上、20文字以内でなければなりません', data-validation-ajax-ajax='/parttimer/check-username')
+                    input#username.input-xlarge(type='text', name='username', placeholder='ユーザー名', required, data-validation-required-message='ユーザー名は必須です', data-validation-regex-regex='[a-zA-Z0-9_]+', data-validation-regex-message='ユーザー名のキャラクターは正しくありません', maxlength='20', data-validation-maxlength-message='ユーザー名は1文字以上、20文字以内でなければなりません', minlength='1', data-validation-minlength-message='ユーザー名は1文字以上、20文字以内でなければなりません', data-validation-ajax-ajax='/parttimer/check-username')
                     p.help-block
 
                 div.control-group
@@ -86,7 +86,7 @@ block content
                 div.control-group
                   label.control-label(for='password') パスワード:
                   div.controls
-                    input#password(type='password', name='password', required, data-validation-required-message='パスワードは必須です', placeholder='パスワード', maxlength='20', data-validation-maxlength-message='ユーザー名は6文字以上、20文字以内でなければなりません', minlength='6', data-validation-minlength-message='ユーザー名は6文字以上、20文字以内でなければなりません')
+                    input#password(type='password', name='password', required, data-validation-required-message='パスワードは必須です', placeholder='パスワード', maxlength='20', data-validation-maxlength-message='ユーザー名は4文字以上、20文字以内でなければなりません', minlength='4', data-validation-minlength-message='ユーザー名は4文字以上、20文字以内でなければなりません')
                     p.help-block
 
                 div.control-group

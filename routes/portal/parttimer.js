@@ -234,7 +234,7 @@ Parttimer.prototype.validateParttimer = function(req, res, next) {
 Parttimer.prototype.validatePassword = function(req, res, next) {
     // Create rule for validate user instance
     req.check('password', 'パスワードは必須です').notEmpty();
-    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('password', 'パスワードは4文字以上、20文字以内でなければなりません').len(4, 20);
     req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
   // Create the mapped errors array
