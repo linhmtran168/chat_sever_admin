@@ -210,10 +210,10 @@ Parttimer.prototype.checkEmail = function(req, res) {
 Parttimer.prototype.validateParttimer = function(req, res, next) {
     // Create rule for validate user instance
     req.check('username', 'ユーザー名は正しくありません').notEmpty().is(/^[a-zA-Z0-9_]+$/);
-    req.check('username', 'ユーザー名は6文字以上、20文字以内でなければなりません').notEmpty().is(/^[a-zA-Z0-9_]+$/).len(6);
+    req.check('username', 'ユーザー名は1文字以上、20文字以内でなければなりません').notEmpty().is(/^[a-zA-Z0-9_]+$/).len(1, 20);
     req.check('email', 'メールアドレスは正しくありません').notEmpty().isEmail();
     req.check('password', 'パスワードは必須です').notEmpty();
-    req.check('password', 'パスワードは6文字以上、20文字以内でなければなりません').len(6, 20);
+    req.check('password', 'パスワードは4文字以上、20文字以内でなければなりません').len(4, 20);
     req.check('passwordConfirm', 'パスワードとパスワードの確認は一致しなけらばなりません').notEmpty().equals(req.body.password);
 
   // Create the mapped errors array
