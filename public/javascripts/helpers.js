@@ -61,6 +61,8 @@
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
       }
 
+      console.log(marker);
+
       var label;
       if (user.status === 'online') {
         label = 'label-success';
