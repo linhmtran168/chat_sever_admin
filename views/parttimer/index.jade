@@ -80,11 +80,14 @@ block content
                 div.control-group
                   label.control-label(for='email') メール:
                   div.controls
-                    input#email.input-xlarge(type='email', name='email', required, data-validation-email-message='メールアドレスは正しくありません', data-validation-ajax-ajax='/parttimer/check-email', placeholder='メール')
+                    input#email.input-xlarge(type='email', name='email', data-validation-email-message='メールアドレスは正しくありません', data-validation-ajax-ajax='/parttimer/check-email', placeholder='メール')
                     p.help-block
 
                 div.control-group
-                  label.control-label(for='password') パスワード:
+                  label.control-label(for='password') 
+                    | パスワード
+                    em (オプショナル)
+                    | :
                   div.controls
                     input#password(type='password', name='password', required, data-validation-required-message='パスワードは必須です', placeholder='パスワード', maxlength='20', data-validation-maxlength-message='ユーザー名は4文字以上、20文字以内でなければなりません', minlength='4', data-validation-minlength-message='ユーザー名は4文字以上、20文字以内でなければなりません')
                     p.help-block
