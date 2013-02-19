@@ -54,7 +54,7 @@
         var pinkIcon = L.icon({
           iconUrl: 'http://49.212.161.19:3050/marker_pink.png',
           shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png',
-          popupAnchor: [-3, -76],
+          popupAnchor: [3, 10],
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: pinkIcon });
       } else {
