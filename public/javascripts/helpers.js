@@ -46,7 +46,21 @@
      * Add marker to the map
      */
     addMarker: function(lat, lng, user) {
-      var marker = L.marker([parseFloat(lat), parseFloat(lng)]);
+      var marker;
+      if (user.gender === 'male') {
+        marker = L.marker([parseFloat(lat), parseFloat(lng)]);
+      } else if (user.gender === 'female'){
+        var pinkIcon = L.icon({
+          iconUrL: 'http://49.212.161.19:3050/marker_pink.png'
+        });
+        marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: pinkIcon });
+      } else {
+        var grayIcon = L.icon({
+          iconUrL: 'http://49.212.161.19:3050/marker_gray.png'
+        });
+        marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
+      }
+
       var label;
       if (user.status === 'online') {
         label = 'label-success';
