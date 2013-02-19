@@ -57,7 +57,7 @@
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: pinkIcon });
       } else {
         var grayIcon = L.icon({
-          iconUrl: 'http://49.212.161.19:3050/marker_gray.png'
+          iconUrl: 'http://49.212.161.19:3050/marker_gray.png',
           shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png'
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
