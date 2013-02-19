@@ -51,12 +51,14 @@
         marker = L.marker([parseFloat(lat), parseFloat(lng)]);
       } else if (user.gender === 'female'){
         var pinkIcon = L.icon({
-          iconUrL: 'http://49.212.161.19:3050/marker_pink.png'
+          iconUrl: 'http://49.212.161.19:3050/marker_pink.png',
+          shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png'
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: pinkIcon });
       } else {
         var grayIcon = L.icon({
-          iconUrL: 'http://49.212.161.19:3050/marker_gray.png'
+          iconUrl: 'http://49.212.161.19:3050/marker_gray.png'
+          shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png'
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
       }
