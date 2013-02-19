@@ -47,7 +47,7 @@
      */
     addMarker: function(lat, lng, user) {
       var marker;
-      console.log(user);
+
       if (user.gender === 'male') {
         marker = L.marker([parseFloat(lat), parseFloat(lng)]);
       } else if (user.gender === 'female'){
@@ -64,7 +64,6 @@
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
       }
 
-      console.log(marker);
 
       var label;
       if (user.status === 'online') {
@@ -96,7 +95,11 @@
      * Add normal marker to map (without popup)
      */
     addNormalMarker: function(lat, lng) {
-      var marker = L.marker([lat, lng]).addTo(this.map);
+      var redIcon = L.icon({
+        iconUrl: 'http://49.212.161.19:3050/marker_red.png',
+        shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png'
+      });
+      var marker = L.marker([lat, lng], { icon: redIcon }).addTo(this.map);
     },
 
     /*
