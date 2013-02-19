@@ -54,14 +54,14 @@
         var pinkIcon = L.icon({
           iconUrl: 'http://49.212.161.19:3050/marker_pink.png',
           shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png',
-          popupAnchor: [14, 5],
+          popupAnchor: [14, 7],
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: pinkIcon });
       } else {
         var grayIcon = L.icon({
           iconUrl: 'http://49.212.161.19:3050/marker_gray.png',
           shadowUrl: 'http://49.212.161.19:3050/marker_shadow.png',
-          popupAnchor: [14, 5],
+          popupAnchor: [14, 7],
         });
         marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: grayIcon });
       }
