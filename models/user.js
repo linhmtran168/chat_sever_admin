@@ -12,7 +12,7 @@ var mongoose = require('mongoose')
 // Define the schema
 var userSchema = new Schema({
   username: { type: String, required: true, index: { unique: true }},
-  email: { type: String, required: true, index: { unique: true }},
+  email: { type: String, index: { unique: true }},
   hash: { type: String, required: true },
   type: { type: String, enum: ['real', 'fake'], index: true },
   profilePhoto: { type: String },
