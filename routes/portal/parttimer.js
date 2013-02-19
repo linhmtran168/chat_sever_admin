@@ -93,10 +93,13 @@ Parttimer.prototype.createParttimer = function(req, res) {
   // Create new user instance
   var user = new User({
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
     type: 'fake',
   });
+
+  if (req.body.email) {
+    user.email = req.body.email;
+  }
 
   // Save the new user 
   user.save(function(err) {
