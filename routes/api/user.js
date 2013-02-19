@@ -850,7 +850,7 @@ module.exports = {
   validateUser: function(req, res, next) {
     // Validate 
     req.check('username', 'ユーザー名は正しくありません').notEmpty().is(/^\S+$/);
-    req.check('username', 'ユーザー名は1文字以上、200文字以内でなければなりません').len(1, 200);
+    req.check('username', 'ユーザー名は1文字以上、30文字以内でなければなりません').len(1, 30);
     req.check('email', 'メールアドレスは正しくありません').notEmpty().isEmail();
     req.check('password', 'パスワードは必須です').notEmpty();
     req.check('password', 'パスワードは4文字以上、30文字以内でなければなりません').len(4, 30);
