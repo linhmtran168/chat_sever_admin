@@ -47,6 +47,7 @@
      */
     addMarker: function(lat, lng, user) {
       var marker;
+      console.log(user);
       if (user.gender === 'male') {
         marker = L.marker([parseFloat(lat), parseFloat(lng)]);
       } else if (user.gender === 'female'){
