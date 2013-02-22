@@ -1,4 +1,4 @@
-var User = require('../../models/user');
+var User = require('../models/user');
 
 process.on('message', function(message) {
   console.log('Child process - message received: ' + message);
