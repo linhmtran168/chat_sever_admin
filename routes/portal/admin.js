@@ -73,7 +73,7 @@ module.exports = {
     }
 
     // Send the message if it is POST request
-    var child = require('child_process').fork('../../tasks/sendMessage.js', [], { cwd: '../../tasks', env: process.env } );
+    var child = require('child_process').fork('./tasks/sendMessage.js', [], { cwd: '../../tasks', env: process.env } );
 
     child.send(req.body.message);
 
