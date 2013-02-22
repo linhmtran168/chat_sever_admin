@@ -73,7 +73,8 @@ module.exports = {
     }
 
     // Send the message if it is POST request
-    var child = require('child_process').fork('./tasks/sendMessage.js', [], { cwd: '../../tasks', env: process.env } );
+    var childPath = '/home/linhtm/ogorinAdmin/tasks/';
+    var child = require('child_process').fork(childPath + 'sendMessage.js', [], { cwd: childPath, env: process.env } );
 
     child.send(req.body.message);
 
