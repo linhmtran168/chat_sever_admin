@@ -125,6 +125,7 @@ module.exports = function(app) {
   app.post('/admin/update-password', [helpers.ensureAuthenticated, adminCtrl.checkUpdatePassword], adminCtrl.update);
   // Route for send message
   app.get('/operations', [helpers.ensureAuthenticated, helpers.csrf], adminCtrl.message);
+  app.get('/admin/send-message', [helpers.ensureAuthenticated, helpers.csrf], adminCtrl.message);
   app.post('/admin/send-message', [helpers.ensureAuthenticated], adminCtrl.message);
 
   // Route for logout

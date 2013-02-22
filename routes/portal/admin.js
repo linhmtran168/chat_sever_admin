@@ -72,15 +72,22 @@ module.exports = {
       });
     }
 
-    // Send the message if it is POST request
-    var childPath = '/home/linhtm/sites/ogorinAdmin/tasks/';
-    var child = require('child_process').fork(childPath + 'sendMessage.js', [], { cwd: childPath, env: process.env } );
+    // POST request
+    // Handle the request with a child process
+    process.nextTick(function() {
+      var childPath = '/home/linhtm/sites/ogorinAdmin/tasks/';
+      var child = require('child_process').fork(childPath + 'sendMessage.js', [], { cwd: childPath, env: process.env } );
 
-    child.send(req.body.message);
+      child.send(req.body.message);
 
-    child.on('message', function() {
-      console.log('Form child process: ' + message);
+      child.on('message', function(message) {
+        console.log('Form child process: ' + message);
+      });
     });
+
+    // Redirect the page
+    req.flash('message', 'Send messages successfully');
+    return res.redirect('/operations');
   },
 
   /* 
