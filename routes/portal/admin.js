@@ -77,7 +77,7 @@ module.exports = {
 
     child.send(req.body.message);
 
-    child.on(message, function() {
+    child.on('message', function() {
       console.log('Form child process: ' + message);
     });
   },
