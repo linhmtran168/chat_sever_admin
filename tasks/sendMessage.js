@@ -25,7 +25,32 @@ process.on('message', function(data) {
     }
 
     console.log(admin);
-    process.exit();
+
+    // Find all the users according to type of receiver
+    var condition, reciverType = parseInt(data.receiver, 10);
+    if (receiverType === 1) {
+      condition = { type: { $ne: 'admin' } };
+    } else if (reciverType === 2) {
+      condition = { gender: 'male', type: { $ne: 'admin' } };
+    } else {
+      condition = { gender: 'female', type: { $ne: 'admin' } };
+    }
+
+    User.find(condition, function(err, users) {
+      if (err) {
+        console.error(err);
+        process.send('Error getting admin user');
+        process.exit();
+      }
+
+      if (!users || users.length === 0) {
+        process.send('There is no users to send message');
+        process.exit();
+      }
+
+      console.log(users);
+      process.exit();
+    });
   });
 });
 
