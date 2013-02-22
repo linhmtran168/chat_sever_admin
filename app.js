@@ -21,7 +21,13 @@ app.configure(function(){
   app.set('view option', {
     layout: false
   });
+
+  // Static assets 
+  app.use(require('less-middleware')({ src: __dirname + '/public' }));
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.favicon());
+
+  // Logging
   app.use(express.logger('dev'));
   app.use(express.bodyParser({
     keepExtensions: true
@@ -60,9 +66,6 @@ app.configure(function(){
   // Router configuration
   app.use(app.router);
 
-  // Static assets 
-  app.use(require('less-middleware')({ src: __dirname + '/public' }));
-  app.use(express.static(path.join(__dirname, 'public')));
 });
 
 app.configure('development', function(){
