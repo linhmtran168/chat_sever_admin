@@ -83,7 +83,8 @@ module.exports = {
       var childPath = '/home/linhtm/sites/ogorinAdmin/tasks/';
       var child = require('child_process').fork(childPath + 'sendMessage.js', [], { cwd: childPath, env: process.env } );
 
-      child.send(req.body.message);
+      var data = { message: req.body.message, receiver:  req.body.receiver };
+      child.send(data);
 
       child.on('message', function(message) {
         console.log('Form child process: ' + message);
