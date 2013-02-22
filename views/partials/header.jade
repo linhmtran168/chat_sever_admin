@@ -20,6 +20,11 @@ div.navbar.navbar-static-top
           else
             li: a(href='/gift') ギフト管理
 
+          if slug === 'operations'
+            li.active: a(href='/operations') Operations
+          else
+            li: a(href='/operations') Operations
+
         ul.nav.pull-right
           li.divider-vertical
           li.dropdown

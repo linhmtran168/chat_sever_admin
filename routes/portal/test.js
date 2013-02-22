@@ -20,7 +20,6 @@ module.exports = {
         adminname: req.body.adminname,
         email: req.body.email,
         password: req.body.password,
-        role: req.body.role
       });
 
       // Save the admin
@@ -29,8 +28,25 @@ module.exports = {
           console.log('Error: \n' + util.inspect(err.errors));
           res.redirect(500, '/test/create-admin');
         } else {
-          console.log('Save admin successfully');
-          res.redirect('/');
+          // Create a admin user in the users database
+          var adminUser = new User({
+            username: req.body.adminname,
+            email: req.body.email,
+            password: req.body.password,
+            profilePhoto: 'admin_avatar.png',
+            type: 'admin'
+          });
+
+          // Attempt to create the admin user
+          adminUser.save(function(err) {
+            if (err) {
+              console.error(err);
+              return res.redirect(500, '/test/create-admin');
+            }
+
+            console.log('Save admin successfully');
+            res.redirect('/');
+          });
         }
       });
     }

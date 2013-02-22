@@ -59,6 +59,29 @@ module.exports = {
    
   },
 
+  /*)
+   * Function to send message to all user
+   */
+  message: function(req, res) {
+    // Render the page if it is GET request
+    if (req.method !== 'POST') {
+      return res.render('admin/message', {
+        title: 'Send Message',
+        slug: 'operations',
+        message: req.flash('message')
+      });
+    }
+
+    // Send the message if it is POST request
+    var child = require('child_process').fork('../../tasks/sendMessage.js', [], { cwd: '../../tasks', env: process.env } );
+
+    child.send(req.body.message);
+
+    child.on(message, function() {
+      console.log('Form child process: ' + message);
+    });
+  },
+
   /* 
    * Function to logout
    */
