@@ -110,6 +110,11 @@ $(function() {
   $('#new-gift input').not('[type=submit]').jqBootstrapValidation();
 
   /*
+   * Send message form validation
+   */
+  $('#send-message-form input').not('[type=submit]').jqBootstrapValidation();
+
+  /*
    * Gift index modal toggle
    */
   // Remove all modal

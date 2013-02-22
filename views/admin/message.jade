@@ -15,7 +15,7 @@ block content
             button.close(type='button', data-dismiss='alert') x
             =message
 
-      form.form(action='/admin/send-message', method='post')
+      form#send-message-form.form(action='/admin/send-message', method='post')
         div.control-group
           label.control-label(for='oldPassword') Message:
           div.controls
@@ -23,7 +23,7 @@ block content
         div.control-group
           label.control-label(for='receiver') Recipients:
           div.controls
-            select(multiple='multiple', name='receiver', required, data-validation-required-message='Receiver option must be chose')
+            select(multiple='multiple', name='receiver')
               option(value='1') All
               option(value='2', selected='selected') Male User
               option(value='3') Female User
