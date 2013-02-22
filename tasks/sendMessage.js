@@ -27,10 +27,10 @@ process.on('message', function(data) {
     console.log(admin);
 
     // Find all the users according to type of receiver
-    var condition, reciverType = parseInt(data.receiver, 10);
+    var condition, receiverType = parseInt(data.receiver, 10);
     if (receiverType === 1) {
       condition = { type: { $ne: 'admin' } };
-    } else if (reciverType === 2) {
+    } else if (receiverType === 2) {
       condition = { gender: 'male', type: { $ne: 'admin' } };
     } else {
       condition = { gender: 'female', type: { $ne: 'admin' } };
