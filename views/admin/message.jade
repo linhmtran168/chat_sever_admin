@@ -19,14 +19,14 @@ block content
         div.control-group
           label.control-label(for='oldPassword') Message:
           div.controls
-            textarea.span5#message(name='message', rows='4', placeholder='Message')
+            textarea.span5#message(name='message', rows='4', placeholder='Message', required, data-validation-required-message='Message should not be empty')
         div.control-group
           label.control-label(for='receiver') Recipients:
           div.controls
-            select(multiple='multiple', name='receiver')
-              option(value='1', checked='checked') All
-              option(value='2') Male
-              option(value='3') Female
+            select(multiple='multiple', name='receiver', required, data-validation-required-message='Receiver option must be chose')
+              option(value='1') All
+              option(value='2', selected='selected') Male User
+              option(value='3') Female User
             
         div.contrl-group
           div.controls
