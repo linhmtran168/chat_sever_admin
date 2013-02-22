@@ -1,6 +1,6 @@
 var User = require('../models/user');
 
-process.on('message', function(message) {
+process.on('message', function(data) {
   console.log('Child process - message received: ' + data.message + '|' + data.receiver);
   process.exit();
 });
