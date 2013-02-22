@@ -74,6 +74,11 @@ module.exports = {
 
     // POST request
     // Handle the request with a child process
+    if (!req.body.message || !req.body.receiver) {
+      req.flash('message', 'Send message failed, the message should not be empty & the recipient must be defined');
+      return res.redirect('back');
+    }
+
     process.nextTick(function() {
       var childPath = '/home/linhtm/sites/ogorinAdmin/tasks/';
       var child = require('child_process').fork(childPath + 'sendMessage.js', [], { cwd: childPath, env: process.env } );
