@@ -4,7 +4,7 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li.active.offset3
-        a(href='#') Send Messages
+        a(href='#') メッセージを送る
 
 
   .row.offset4
@@ -17,18 +17,18 @@ block content
 
       form#send-message-form.form(action='/admin/send-message', method='post')
         div.control-group
-          label.control-label(for='oldPassword') Message:
+          label.control-label(for='oldPassword') メッセージ:
           div.controls
             textarea.span5#message(name='message', rows='4', placeholder='Message', required, data-validation-required-message='Message should not be empty')
         div.control-group
-          label.control-label(for='receiver') Recipients:
+          label.control-label(for='receiver') 受取人:
           div.controls
             select(multiple='multiple', name='receiver')
-              option(value='1') All
-              option(value='2', selected='selected') Male User
-              option(value='3') Female User
+              option(value='1') 全て
+              option(value='2', selected='selected') 男性
+              option(value='3') 女性
             
         div.contrl-group
           div.controls
-            button.btn.btn-primary(type='submit') Send Message
+            button.btn.btn-primary(type='submit') メッセージを送る
             input(type='hidden', name='_csrf', value=token)

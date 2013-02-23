@@ -75,7 +75,7 @@ module.exports = {
     // POST request
     // Handle the request with a child process
     if (!req.body.message || !req.body.receiver) {
-      req.flash('message', 'Send message failed, the message should not be empty & the recipient must be defined');
+      req.flash('message', 'ッセージの送信が失敗しました');
       return res.redirect('back');
     }
 
@@ -92,7 +92,7 @@ module.exports = {
     });
 
     // Redirect the page
-    req.flash('message', 'Send messages successfully');
+    req.flash('message', 'メッセージが送信されました');
     return res.redirect('/operations');
   },
 
