@@ -66,7 +66,7 @@ module.exports = {
     // Render the page if it is GET request
     if (req.method !== 'POST') {
       return res.render('admin/message', {
-        title: 'Send Message',
+        title: 'メッセージを送る',
         slug: 'operations',
         message: req.flash('message')
       });
